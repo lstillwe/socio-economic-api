@@ -1,0 +1,136 @@
+---
+swagger: "2.0"
+info:
+  description: "This is the socio-environmental-exposures API. It provides American\
+    \ CommunitySurvey data for a given lat, lon location"
+  version: "1.0.0"
+  title: "Socio-Environmental Exposures API"
+  contact:
+    name: "Lisa Stillwell"
+    email: "lisa@renci.org"
+  license:
+    name: "MIT"
+    url: "http://opensource.org/licenses/MIT"
+host: "bdt-social.renci.org:8080"
+basePath: "/socio-environmental-exposures-api/v1"
+schemes:
+- "https"
+paths:
+  /values:
+    get:
+      summary: "provides ACS values"
+      description: "By passing in a location specification (lat, lon), you can retrieve\
+        \ the the ACS Values for that location\n"
+      operationId: "get_values"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "latitude"
+        in: "query"
+        description: "latitude in decimal degrees format, ie: 35.7"
+        required: true
+        type: "string"
+      - name: "longitude"
+        in: "query"
+        description: "longitude in decimal degrees format, ie: -80.33"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              values:
+                $ref: "#/definitions/inline_response_200_values"
+        400:
+          description: "Invalid parameter"
+        404:
+          description: "No values found"
+        500:
+          description: "Server error"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+definitions:
+  inline_response_200:
+    properties:
+      values:
+        $ref: "#/definitions/inline_response_200_values"
+    example:
+      values:
+        EstPropPersonsNoHealthIns: "0.099141296"
+        EstPropHouseholdsNonHispWhite: "0.838862559"
+        EstTotalPop: "1281"
+        EstTotalPop25Plus: "1008"
+        EstPropPersonsNonHispWhite: "0.834504294"
+        latitude: "35.7"
+        EstPropHouseholdsNoAuto: "0.085308057"
+        MedianHouseholdIncome: "30365"
+        EstPropPersons25PlusHighSchoolMax: "0.291666667"
+        EstPropPersons5PlusNoEnglish: "0.018771331"
+        longitude: "-80.33"
+  inline_response_200_values:
+    properties:
+      latitude:
+        type: "string"
+        example: "35.7"
+      longitude:
+        type: "string"
+        example: "-80.33"
+      EstTotalPop:
+        type: "string"
+        example: "1281"
+      EstTotalPop25Plus:
+        type: "string"
+        example: "1008"
+      EstPropPersonsNonHispWhite:
+        type: "string"
+        example: "0.834504294"
+      EstPropHouseholdsNonHispWhite:
+        type: "string"
+        example: "0.838862559"
+      EstPropPersons25PlusHighSchoolMax:
+        type: "string"
+        example: "0.291666667"
+      EstPropHouseholdsNoAuto:
+        type: "string"
+        example: "0.085308057"
+      EstPropPersonsNoHealthIns:
+        type: "string"
+        example: "0.099141296"
+      EstPropPersons5PlusNoEnglish:
+        type: "string"
+        example: "0.018771331"
+      MedianHouseholdIncome:
+        type: "string"
+        example: "30365"
+    example:
+      EstPropPersonsNoHealthIns: "0.099141296"
+      EstPropHouseholdsNonHispWhite: "0.838862559"
+      EstTotalPop: "1281"
+      EstTotalPop25Plus: "1008"
+      EstPropPersonsNonHispWhite: "0.834504294"
+      latitude: "35.7"
+      EstPropHouseholdsNoAuto: "0.085308057"
+      MedianHouseholdIncome: "30365"
+      EstPropPersons25PlusHighSchoolMax: "0.291666667"
+      EstPropPersons5PlusNoEnglish: "0.018771331"
+      longitude: "-80.33"
+parameters:
+  search:
+    name: "search"
+    in: "query"
+    description: "search for exposure variables like - default is empty"
+    required: false
+    type: "string"
+  latitude:
+    name: "latitude"
+    in: "query"
+    description: "latitude in decimal degrees format, ie: 35.7"
+    required: true
+    type: "string"
+  longitude:
+    name: "longitude"
+    in: "query"
+    description: "longitude in decimal degrees format, ie: -80.33"
+    required: true
+    type: "string"
