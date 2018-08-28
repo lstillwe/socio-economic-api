@@ -62,3 +62,9 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+#Docker
+.dockerignore
+
+.swagger-codegen/
+.travis.yml
