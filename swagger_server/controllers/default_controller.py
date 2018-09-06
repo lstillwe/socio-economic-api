@@ -1,12 +1,22 @@
-import connexion
-import six
+import sys
 
 from swagger_server.models.inline_response200 import InlineResponse200  # noqa: E501
+from swagger_server.models.models import SocioEconomicDatum  # noqa: E501
 from swagger_server import util
+from configparser import ConfigParser
+from sqlalchemy import exists, or_, func
+
+from swagger_server.controllers import Session
+from flask import jsonify
+
+parser = ConfigParser()
+parser.read('swagger_server/ini/connexion.ini')
+sys.path.append(parser.get('sys-path', 'exposures'))
+sys.path.append(parser.get('sys-path', 'controllers'))
 
 
 def get_values(latitude, longitude):  # noqa: E501
-    """provides ACS values
+    """2016 ACS (American Community Survey) Socio-Economic data
 
     By passing in a location specification (lat, lon), you can retrieve the the ACS Values for that location  # noqa: E501
 
@@ -17,4 +27,9 @@ def get_values(latitude, longitude):  # noqa: E501
 
     :rtype: InlineResponse200
     """
-    return 'do some magic!'
+    from swagger_server.socio_exposures.socio_econ import SocioEconExposures
+    socio = SocioEconExposures()
+    kwargs = locals()
+    data = socio.get_values(**kwargs)
+
+    return data

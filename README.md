@@ -27,7 +27,7 @@ http://localhost:8080/socio-environmental-exposures-api/v1/ui/
 Your Swagger definition lives here:
 
 ```
-http://localhost:8080/socio-environmental-exposures-api/1.0.0/swagger.json
+http://localhost:8080/proximity_api/socio-environmental-exposures-api/1.0.0/swagger.json
 ```
 
 To launch the integration tests, use tox:

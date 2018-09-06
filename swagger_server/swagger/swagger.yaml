@@ -12,7 +12,7 @@ info:
     name: "MIT"
     url: "http://opensource.org/licenses/MIT"
 host: "bdt-social.renci.org:8080"
-basePath: "/socio-environmental-exposures-api/v1"
+basePath: "/socio_environmental_exposures_api/v1"
 schemes:
 - "https"
 paths:
