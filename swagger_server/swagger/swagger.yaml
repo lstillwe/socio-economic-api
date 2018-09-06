@@ -63,6 +63,7 @@ definitions:
         EstTotalPop25Plus: "1008"
         EstPropPersonsNonHispWhite: "0.834504294"
         latitude: "35.7"
+        geoid: "15000US450510706011"
         EstPropHouseholdsNoAuto: "0.085308057"
         MedianHouseholdIncome: "30365"
         EstPropPersons25PlusHighSchoolMax: "0.291666667"
@@ -76,6 +77,9 @@ definitions:
       longitude:
         type: "string"
         example: "-80.33"
+      geoid:
+        type: "string"
+        example: "15000US450510706011"
       EstTotalPop:
         type: "string"
         example: "1281"
@@ -110,6 +114,7 @@ definitions:
       EstTotalPop25Plus: "1008"
       EstPropPersonsNonHispWhite: "0.834504294"
       latitude: "35.7"
+      geoid: "15000US450510706011"
       EstPropHouseholdsNoAuto: "0.085308057"
       MedianHouseholdIncome: "30365"
       EstPropPersons25PlusHighSchoolMax: "0.291666667"
