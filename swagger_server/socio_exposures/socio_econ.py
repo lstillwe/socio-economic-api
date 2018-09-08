@@ -58,13 +58,11 @@ class SocioEconExposures(object):
 
         # create data object
         data = {}
-        data['values'] = []
+        # data['values'] = []
 
         # retrieve query result for each lat,lon pair and add to data object
         lat = kwargs.get('latitude')
         lon = kwargs.get('longitude')
-
-        socio_econ_output = []
 
         session = Session()
 
@@ -93,7 +91,8 @@ class SocioEconExposures(object):
         session.close()
 	
         for query_return_values in query:
-            data['values'].append({'latitude': lat,
+            # data['values'].append({'latitude': lat,
+            data.update({'latitude': lat,
                                    'longitude': lon,
                                    'geoid': query_return_values[1],
                                    'EstTotalPop': int(query_return_values[2]),

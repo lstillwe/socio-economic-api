@@ -41,8 +41,7 @@ paths:
           schema:
             type: "object"
             properties:
-              values:
-                $ref: "#/definitions/inline_response_200_values"
+              $ref: "#/definitions/inline_response_200"
         400:
           description: "Invalid parameter"
         404:
@@ -52,24 +51,6 @@ paths:
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
 definitions:
   inline_response_200:
-    properties:
-      values:
-        $ref: "#/definitions/inline_response_200_values"
-    example:
-      values:
-        EstPropPersonsNoHealthIns: "0.099141296"
-        EstPropHouseholdsNonHispWhite: "0.838862559"
-        EstTotalPop: "1281"
-        EstTotalPop25Plus: "1008"
-        EstPropPersonsNonHispWhite: "0.834504294"
-        latitude: "35.7"
-        geoid: "15000US450510706011"
-        EstPropHouseholdsNoAuto: "0.085308057"
-        MedianHouseholdIncome: "30365"
-        EstPropPersons25PlusHighSchoolMax: "0.291666667"
-        EstPropPersons5PlusNoEnglish: "0.018771331"
-        longitude: "-80.33"
-  inline_response_200_values:
     properties:
       latitude:
         type: "string"
