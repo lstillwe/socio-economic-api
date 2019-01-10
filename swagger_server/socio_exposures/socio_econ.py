@@ -78,14 +78,21 @@ class SocioEconExposures(object):
         query = session.query(SocioEconomicDatum.id,
                               SocioEconomicDatum.geoid,
                               SocioEconomicDatum.estresidentialdensity,
+                              SocioEconomicDatum.estresidentialdensity_se,
                               SocioEconomicDatum.estresidentialdensity25plus,
+                              SocioEconomicDatum.estresidentialdensity25plus_se,
                               SocioEconomicDatum.estprobabilitynonhispwhite,
-                              SocioEconomicDatum.estprobabilityhouseholdnonhispwhite,
+                              SocioEconomicDatum.estprobabilitynonhispwhite_se,
                               SocioEconomicDatum.estprobabilityhighschoolmaxeducation,
+                              SocioEconomicDatum.estprobabilityhighschoolmaxeducation_se,
                               SocioEconomicDatum.estprobabilitynoauto,
+                              SocioEconomicDatum.estprobabilitynoauto_se,
                               SocioEconomicDatum.estprobabilitynohealthins,
+                              SocioEconomicDatum.estprobabilitynohealthins_se,
                               SocioEconomicDatum.estprobabilityesl,
-                              SocioEconomicDatum.esthouseholdincome). \
+                              SocioEconomicDatum.estprobabilityesl_se,
+                              SocioEconomicDatum.esthouseholdincome,
+                              SocioEconomicDatum.esthouseholdincome_se). \
                                   filter(SocioEconomicDatum.geoid.like("%" + geoid))
 
         session.close()
@@ -96,14 +103,21 @@ class SocioEconExposures(object):
                                    'longitude': lon,
                                    'geoid': query_return_values[1],
                                    'EstTotalPop': int(query_return_values[2]),
-                                   'EstTotalPop25Plus': int(query_return_values[3]),
-                                   'EstPropPersonsNonHispWhite': float(query_return_values[4]),
-                                   'EstPropHouseholdsNonHispWhite': float(query_return_values[5]),
-                                   'EstPropPersons25PlusHighSchoolMax': float(query_return_values[6]),
-                                   'EstPropHouseholdsNoAuto': float(query_return_values[7]),
-                                   'EstPropPersonsNoHealthIns': float(query_return_values[8]),
-                                   'EstPropPersons5PlusNoEnglish': float(query_return_values[9]),
-                                   'MedianHouseholdIncome': query_return_values[10]})
+                                   'EstTotalPop_SE': float(query_return_values[3]),
+                                   'EstTotalPop25Plus': int(query_return_values[4]),
+                                   'EstTotalPop25Plus_SE': float(query_return_values[5]),
+                                   'EstPropPersonsNonHispWhite': float(query_return_values[6]),
+                                   'EstPropPersonsNonHispWhite_SE': float(query_return_values[7]),
+                                   'EstPropPersons25PlusHighSchoolMax': float(query_return_values[8]),
+                                   'EstPropPersons25PlusHighSchoolMax_SE': float(query_return_values[9]),
+                                   'EstPropHouseholdsNoAuto': float(query_return_values[10]),
+                                   'EstPropHouseholdsNoAuto_SE': float(query_return_values[11]),
+                                   'EstPropPersonsNoHealthIns': float(query_return_values[12]),
+                                   'EstPropPersonsNoHealthIns_SE': float(query_return_values[13]),
+                                   'EstPropPersons5PlusNoEnglish': float(query_return_values[14]),
+                                   'EstPropPersons5PlusNoEnglish_SE': float(query_return_values[15]),
+                                   'MedianHouseholdIncome': query_return_values[16],
+                                   'MedianHouseholdIncome_SE': query_return_values[17]})
             break
 
         return jsonify(data)

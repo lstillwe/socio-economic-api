@@ -15,71 +15,111 @@ class InlineResponse200Values(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, latitude: str=None, longitude: str=None, est_total_pop: str=None, est_total_pop25_plus: str=None, est_prop_persons_non_hisp_white: str=None, est_prop_households_non_hisp_white: str=None, est_prop_persons25_plus_high_school_max: str=None, est_prop_households_no_auto: str=None, est_prop_persons_no_health_ins: str=None, est_prop_persons5_plus_no_english: str=None, median_household_income: str=None):  # noqa: E501
-        """InlineResponse200Values - a model defined in Swagger
+    def __init__(self, latitude: str=None, longitude: str=None, geoid: str=None, est_total_pop: str=None, est_total_pop_se: str=None, est_total_pop25_plus: str=None, est_total_pop25_plus_se: str=None, est_prop_non_hisp_white: str=None, est_prop_non_hisp_white_se: str=None, est_prop_persons25_plus_high_school_max: str=None, est_prop_persons25_plus_high_school_max_se: str=None, est_prop_households_no_auto: str=None, est_prop_households_no_auto_se: str=None, est_prop_persons_no_health_ins: str=None, est_prop_persons_no_health_ins_se: str=None, est_prop_persons5_plus_no_english: str=None, est_prop_persons5_plus_no_english_se: str=None, median_household_income: str=None, median_household_income_se: str=None):  # noqa: E501
+        """InlineResponse200Values( - a model defined in Swagger
 
         :param latitude: The latitude of this InlineResponse200Values.  # noqa: E501
         :type latitude: str
         :param longitude: The longitude of this InlineResponse200Values.  # noqa: E501
         :type longitude: str
+        :param geoid: The geoid of this InlineResponse200Values.  # noqa: E501
+        :type geoid: str
         :param est_total_pop: The est_total_pop of this InlineResponse200Values.  # noqa: E501
         :type est_total_pop: str
+        :param est_total_pop_se: The est_total_pop_se of this InlineResponse200Values.  # noqa: E501
+        :type est_total_pop_se: str
         :param est_total_pop25_plus: The est_total_pop25_plus of this InlineResponse200Values.  # noqa: E501
         :type est_total_pop25_plus: str
-        :param est_prop_persons_non_hisp_white: The est_prop_persons_non_hisp_white of this InlineResponse200Values.  # noqa: E501
-        :type est_prop_persons_non_hisp_white: str
-        :param est_prop_households_non_hisp_white: The est_prop_households_non_hisp_white of this InlineResponse200Values.  # noqa: E501
-        :type est_prop_households_non_hisp_white: str
+        :param est_total_pop25_plus_se: The est_total_pop25_plus_se of this InlineResponse200Values.  # noqa: E501
+        :type est_total_pop25_plus_se: str
+        :param est_prop_non_hisp_white: The est_prop_non_hisp_white of this InlineResponse200Values.  # noqa: E501
+        :type est_prop_non_hisp_white: str
+        :param est_prop_non_hisp_white_se: The est_prop_non_hisp_white_se of this InlineResponse200Values.  # noqa: E501
+        :type est_prop_non_hisp_white_se: str
         :param est_prop_persons25_plus_high_school_max: The est_prop_persons25_plus_high_school_max of this InlineResponse200Values.  # noqa: E501
         :type est_prop_persons25_plus_high_school_max: str
+        :param est_prop_persons25_plus_high_school_max_se: The est_prop_persons25_plus_high_school_max_se of this InlineResponse200Values.  # noqa: E501
+        :type est_prop_persons25_plus_high_school_max_se: str
         :param est_prop_households_no_auto: The est_prop_households_no_auto of this InlineResponse200Values.  # noqa: E501
         :type est_prop_households_no_auto: str
+        :param est_prop_households_no_auto_se: The est_prop_households_no_auto_se of this InlineResponse200Values.  # noqa: E501
+        :type est_prop_households_no_auto_se: str
         :param est_prop_persons_no_health_ins: The est_prop_persons_no_health_ins of this InlineResponse200Values.  # noqa: E501
         :type est_prop_persons_no_health_ins: str
+        :param est_prop_persons_no_health_ins_se: The est_prop_persons_no_health_ins_se of this InlineResponse200Values.  # noqa: E501
+        :type est_prop_persons_no_health_ins_se: str
         :param est_prop_persons5_plus_no_english: The est_prop_persons5_plus_no_english of this InlineResponse200Values.  # noqa: E501
         :type est_prop_persons5_plus_no_english: str
+        :param est_prop_persons5_plus_no_english_se: The est_prop_persons5_plus_no_english_se of this InlineResponse200Values..  # noqa: E501
+        :type est_prop_persons5_plus_no_english_se: str
         :param median_household_income: The median_household_income of this InlineResponse200Values.  # noqa: E501
         :type median_household_income: str
+        :param median_household_income_se: The median_household_income_se of this InlineResponse200Values.  # noqa: E501
+        :type median_household_income_se: str
         """
         self.swagger_types = {
             'latitude': str,
             'longitude': str,
+            'geoid': str,
             'est_total_pop': str,
+            'est_total_pop_se': str,
             'est_total_pop25_plus': str,
-            'est_prop_persons_non_hisp_white': str,
-            'est_prop_households_non_hisp_white': str,
+            'est_total_pop25_plus_se': str,
+            'est_prop_non_hisp_white': str,
+            'est_prop_non_hisp_white_se': str,
             'est_prop_persons25_plus_high_school_max': str,
+            'est_prop_persons25_plus_high_school_max_se': str,
             'est_prop_households_no_auto': str,
+            'est_prop_households_no_auto_se': str,
             'est_prop_persons_no_health_ins': str,
+            'est_prop_persons_no_health_ins_se': str,
             'est_prop_persons5_plus_no_english': str,
-            'median_household_income': str
+            'est_prop_persons5_plus_no_english_se': str,
+            'median_household_income': str,
+            'median_household_income_se': str
         }
 
         self.attribute_map = {
             'latitude': 'latitude',
             'longitude': 'longitude',
+            'geoid': 'geoid',
             'est_total_pop': 'EstTotalPop',
+            'est_total_pop_se': 'EstTotalPop_SE',
             'est_total_pop25_plus': 'EstTotalPop25Plus',
-            'est_prop_persons_non_hisp_white': 'EstPropPersonsNonHispWhite',
-            'est_prop_households_non_hisp_white': 'EstPropHouseholdsNonHispWhite',
+            'est_total_pop25_plus_se': 'EstTotalPop25Plus_SE',
+            'est_prop_non_hisp_white': 'EstPropNonHispWhite',
+            'est_prop_non_hisp_white_se': 'EstPropNonHispWhite_SE',
             'est_prop_persons25_plus_high_school_max': 'EstPropPersons25PlusHighSchoolMax',
+            'est_prop_persons25_plus_high_school_max_se': 'EstPropPersons25PlusHighSchoolMax_SE',
             'est_prop_households_no_auto': 'EstPropHouseholdsNoAuto',
+            'est_prop_households_no_auto_se': 'EstPropHouseholdsNoAuto_SE',
             'est_prop_persons_no_health_ins': 'EstPropPersonsNoHealthIns',
+            'est_prop_persons_no_health_ins_se': 'EstPropPersonsNoHealthIns_SE',
             'est_prop_persons5_plus_no_english': 'EstPropPersons5PlusNoEnglish',
-            'median_household_income': 'MedianHouseholdIncome'
+            'est_prop_persons5_plus_no_english_se': 'EstPropPersons5PlusNoEnglish_SE',
+            'median_household_income': 'MedianHouseholdIncome',
+            'median_household_income_se': 'MedianHouseholdIncome_SE'
         }
 
         self._latitude = latitude
         self._longitude = longitude
+        self._geoid = geoid
         self._est_total_pop = est_total_pop
+        self._est_total_pop_se = est_total_pop_se
         self._est_total_pop25_plus = est_total_pop25_plus
-        self._est_prop_persons_non_hisp_white = est_prop_persons_non_hisp_white
-        self._est_prop_households_non_hisp_white = est_prop_households_non_hisp_white
+        self._est_total_pop25_plus_se = est_total_pop25_plus_se
+        self._est_prop_non_hisp_white = est_prop_non_hisp_white
+        self._est_prop_non_hisp_white_se = est_prop_non_hisp_white_se
         self._est_prop_persons25_plus_high_school_max = est_prop_persons25_plus_high_school_max
+        self._est_prop_persons25_plus_high_school_max_se = est_prop_persons25_plus_high_school_max_se
         self._est_prop_households_no_auto = est_prop_households_no_auto
+        self._est_prop_households_no_auto_se = est_prop_households_no_auto_se
         self._est_prop_persons_no_health_ins = est_prop_persons_no_health_ins
+        self._est_prop_persons_no_health_ins_se = est_prop_persons_no_health_ins_se
         self._est_prop_persons5_plus_no_english = est_prop_persons5_plus_no_english
+        self._est_prop_persons5_plus_no_english_se = est_prop_persons5_plus_no_english_se
         self._median_household_income = median_household_income
+        self._median_household_income_se = median_household_income_se
 
     @classmethod
     def from_dict(cls, dikt) -> 'InlineResponse200Values':
@@ -87,7 +127,7 @@ class InlineResponse200Values(Model):
 
         :param dikt: A dict.
         :type: dict
-        :return: The inline_response_200_values of this InlineResponse200Values.  # noqa: E501
+        :return: The inline_response_200 of this InlineResponse200Values.  # noqa: E501
         :rtype: InlineResponse200Values
         """
         return util.deserialize_model(dikt, cls)
@@ -135,6 +175,27 @@ class InlineResponse200Values(Model):
         self._longitude = longitude
 
     @property
+    def geoid(self) -> str:
+        """Gets the geoid of this InlineResponse200Values.
+
+
+        :return: The geoid of this InlineResponse200Values.
+        :rtype: str
+        """
+        return self._geoid
+
+    @geoid.setter
+    def geoid(self, geoid: str):
+        """Sets the geoid of this InlineResponse200Values.
+
+
+        :param geoid: The geoid of this InlineResponse200Values.
+        :type geoid: str
+        """
+
+        self._geoid = geoid
+
+    @property
     def est_total_pop(self) -> str:
         """Gets the est_total_pop of this InlineResponse200Values.
 
@@ -154,6 +215,27 @@ class InlineResponse200Values(Model):
         """
 
         self._est_total_pop = est_total_pop
+
+    @property
+    def est_total_pop_se(self) -> str:
+        """Gets the est_total_pop_se of this InlineResponse200Values.
+
+
+        :return: The est_total_pop_se of this InlineResponse200Values.
+        :rtype: str
+        """
+        return self._est_total_pop_se
+
+    @est_total_pop_se.setter
+    def est_total_pop_se(self, est_total_pop_se: str):
+        """Sets the est_total_pop_se of this InlineResponse200Values.
+
+
+        :param est_total_pop_se: The est_total_pop_se of this InlineResponse200Values.
+        :type est_total_pop_se: str
+        """
+
+        self._est_total_pop_se = est_total_pop_se
 
     @property
     def est_total_pop25_plus(self) -> str:
@@ -177,46 +259,67 @@ class InlineResponse200Values(Model):
         self._est_total_pop25_plus = est_total_pop25_plus
 
     @property
-    def est_prop_persons_non_hisp_white(self) -> str:
-        """Gets the est_prop_persons_non_hisp_white of this InlineResponse200Values.
+    def est_total_pop25_plus_se(self) -> str:
+        """Gets the est_total_pop25_plus_se of this InlineResponse200Values.
 
 
-        :return: The est_prop_persons_non_hisp_white of this InlineResponse200Values.
+        :return: The est_total_pop25_plus_se of this InlineResponse200Values.
         :rtype: str
         """
-        return self._est_prop_persons_non_hisp_white
+        return self._est_total_pop25_plus_se
 
-    @est_prop_persons_non_hisp_white.setter
-    def est_prop_persons_non_hisp_white(self, est_prop_persons_non_hisp_white: str):
-        """Sets the est_prop_persons_non_hisp_white of this InlineResponse200Values.
+    @est_total_pop25_plus_se.setter
+    def est_total_pop25_plus_se(self, est_total_pop25_plus_se: str):
+        """Sets the est_total_pop25_plus_se of this InlineResponse200Values.
 
 
-        :param est_prop_persons_non_hisp_white: The est_prop_persons_non_hisp_white of this InlineResponse200Values.
-        :type est_prop_persons_non_hisp_white: str
+        :param est_total_pop25_plus_se: The est_total_pop25_plus_se of this InlineResponse200Values.
+        :type est_total_pop25_plus_se: str
         """
 
-        self._est_prop_persons_non_hisp_white = est_prop_persons_non_hisp_white
+        self._est_total_pop25_plus_se = est_total_pop25_plus_se
 
     @property
-    def est_prop_households_non_hisp_white(self) -> str:
-        """Gets the est_prop_households_non_hisp_white of this InlineResponse200Values.
+    def est_prop_non_hisp_white(self) -> str:
+        """Gets the est_prop_non_hisp_white of this InlineResponse200Values.
 
 
-        :return: The est_prop_households_non_hisp_white of this InlineResponse200Values.
+        :return: The est_prop_non_hisp_white of this InlineResponse200Values.
         :rtype: str
         """
-        return self._est_prop_households_non_hisp_white
+        return self._est_prop_non_hisp_white
 
-    @est_prop_households_non_hisp_white.setter
-    def est_prop_households_non_hisp_white(self, est_prop_households_non_hisp_white: str):
-        """Sets the est_prop_households_non_hisp_white of this InlineResponse200Values.
+    @est_prop_non_hisp_white.setter
+    def est_prop_non_hisp_white(self, est_prop_non_hisp_white: str):
+        """Sets the est_prop_non_hisp_white of this InlineResponse200Values.
 
 
-        :param est_prop_households_non_hisp_white: The est_prop_households_non_hisp_white of this InlineResponse200Values.
-        :type est_prop_households_non_hisp_white: str
+        :param est_prop_non_hisp_white: The est_prop_non_hisp_white of this InlineResponse200Values.
+        :type est_prop_non_hisp_white: str
         """
 
-        self._est_prop_households_non_hisp_white = est_prop_households_non_hisp_white
+        self._est_prop_non_hisp_white = est_prop_non_hisp_white
+
+    @property
+    def est_prop_non_hisp_white_se(self) -> str:
+        """Gets the est_prop_non_hisp_white_se of this InlineResponse200Values.
+
+
+        :return: The est_prop_non_hisp_white_se of this InlineResponse200Values.
+        :rtype: str
+        """
+        return self._est_prop_non_hisp_white_se
+
+    @est_prop_non_hisp_white_se.setter
+    def est_prop_non_hisp_white_se(self, est_prop_non_hisp_white_se: str):
+        """Sets the est_prop_non_hisp_white_se of this InlineResponse200Values.
+
+
+        :param est_prop_non_hisp_white_se: The est_prop_non_hisp_white_se of this InlineResponse200Values.
+        :type est_prop_non_hisp_white_se: str
+        """
+
+        self._est_prop_non_hisp_white_se = est_prop_non_hisp_white_se
 
     @property
     def est_prop_persons25_plus_high_school_max(self) -> str:
@@ -240,6 +343,27 @@ class InlineResponse200Values(Model):
         self._est_prop_persons25_plus_high_school_max = est_prop_persons25_plus_high_school_max
 
     @property
+    def est_prop_persons25_plus_high_school_max_se(self) -> str:
+        """Gets the est_prop_persons25_plus_high_school_max_se of this InlineResponse200Values.
+
+
+        :return: The est_prop_persons25_plus_high_school_max_se of this InlineResponse200Values.
+        :rtype: str
+        """
+        return self._est_prop_persons25_plus_high_school_max_se
+
+    @est_prop_persons25_plus_high_school_max_se.setter
+    def est_prop_persons25_plus_high_school_max_se(self, est_prop_persons25_plus_high_school_max_se: str):
+        """Sets the est_prop_persons25_plus_high_school_max_se of this InlineResponse200Values.
+
+
+        :param est_prop_persons25_plus_high_school_max_se: The est_prop_persons25_plus_high_school_max_se of this InlineResponse200Values.
+        :type est_prop_persons25_plus_high_school_max_se: str
+        """
+
+        self._est_prop_persons25_plus_high_school_max_se = est_prop_persons25_plus_high_school_max_se
+
+    @property
     def est_prop_households_no_auto(self) -> str:
         """Gets the est_prop_households_no_auto of this InlineResponse200Values.
 
@@ -259,6 +383,27 @@ class InlineResponse200Values(Model):
         """
 
         self._est_prop_households_no_auto = est_prop_households_no_auto
+
+    @property
+    def est_prop_households_no_auto_se(self) -> str:
+        """Gets the est_prop_households_no_auto_se of this InlineResponse200Values.
+
+
+        :return: The est_prop_households_no_auto_se of this InlineResponse200Values.
+        :rtype: str
+        """
+        return self._est_prop_households_no_auto_se
+
+    @est_prop_households_no_auto_se.setter
+    def est_prop_households_no_auto_se(self, est_prop_households_no_auto_se: str):
+        """Sets the est_prop_households_no_auto_se of this InlineResponse200Values.
+
+
+        :param est_prop_households_no_auto_se: The est_prop_households_no_auto_se of this InlineResponse200Values.
+        :type est_prop_households_no_auto_se: str
+        """
+
+        self._est_prop_households_no_auto_se = est_prop_households_no_auto_se
 
     @property
     def est_prop_persons_no_health_ins(self) -> str:
@@ -282,6 +427,27 @@ class InlineResponse200Values(Model):
         self._est_prop_persons_no_health_ins = est_prop_persons_no_health_ins
 
     @property
+    def est_prop_persons_no_health_ins_se(self) -> str:
+        """Gets the est_prop_persons_no_health_ins_se of this InlineResponse200Values.
+
+
+        :return: The est_prop_persons_no_health_ins_se of this InlineResponse200Values.
+        :rtype: str
+        """
+        return self._est_prop_persons_no_health_ins_se
+
+    @est_prop_persons_no_health_ins_se.setter
+    def est_prop_persons_no_health_ins_se(self, est_prop_persons_no_health_ins_se: str):
+        """Sets the est_prop_persons_no_health_ins_se of this InlineResponse200Values.
+
+
+        :param est_prop_persons_no_health_ins_se: The est_prop_persons_no_health_ins_se of this InlineResponse200Values.
+        :type est_prop_persons_no_health_ins_se: str
+        """
+
+        self._est_prop_persons_no_health_ins_se = est_prop_persons_no_health_ins_se
+
+    @property
     def est_prop_persons5_plus_no_english(self) -> str:
         """Gets the est_prop_persons5_plus_no_english of this InlineResponse200Values.
 
@@ -303,6 +469,27 @@ class InlineResponse200Values(Model):
         self._est_prop_persons5_plus_no_english = est_prop_persons5_plus_no_english
 
     @property
+    def est_prop_persons5_plus_no_english_se(self) -> str:
+        """Gets the est_prop_persons5_plus_no_english_se of this InlineResponse200Values.
+
+
+        :return: The est_prop_persons5_plus_no_english_se of this InlineResponse200Values.
+        :rtype: str
+        """
+        return self._est_prop_persons5_plus_no_english_se
+
+    @est_prop_persons5_plus_no_english_se.setter
+    def est_prop_persons5_plus_no_english_se(self, est_prop_persons5_plus_no_english_se: str):
+        """Sets the est_prop_persons5_plus_no_english_se of this InlineResponse200Values.
+
+
+        :param est_prop_persons5_plus_no_english_se: The est_prop_persons5_plus_no_english_se of this InlineResponse200Values.
+        :type est_prop_persons5_plus_no_english_se: str
+        """
+
+        self._est_prop_persons5_plus_no_english_se = est_prop_persons5_plus_no_english_se
+
+    @property
     def median_household_income(self) -> str:
         """Gets the median_household_income of this InlineResponse200Values.
 
@@ -322,3 +509,24 @@ class InlineResponse200Values(Model):
         """
 
         self._median_household_income = median_household_income
+
+    @property
+    def median_household_income_se(self) -> str:
+        """Gets the median_household_income_se of this InlineResponse200Values.
+
+
+        :return: The median_household_income_se of this InlineResponse200Values.
+        :rtype: str
+        """
+        return self._median_household_income_se
+
+    @median_household_income_se.setter
+    def median_household_income_se(self, median_household_income_se: str):
+        """Sets the median_household_income_se of this InlineResponse200Values.
+
+
+        :param median_household_income_se: The median_household_income_se of this InlineResponse200Values.
+        :type median_household_income_se: str
+        """
+
+        self._median_household_income_se = median_household_income_se

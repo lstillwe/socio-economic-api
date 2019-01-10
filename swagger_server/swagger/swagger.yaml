@@ -27,12 +27,12 @@ paths:
       parameters:
       - name: "latitude"
         in: "query"
-        description: "latitude in decimal degrees format, ie: 35.7"
+        description: "latitude in decimal degrees format, ie: 32.47"
         required: true
         type: "string"
       - name: "longitude"
         in: "query"
-        description: "longitude in decimal degrees format, ie: -80.33"
+        description: "longitude in decimal degrees format, ie: -86.5"
         required: true
         type: "string"
       responses:
@@ -41,7 +41,63 @@ paths:
           schema:
             type: "object"
             properties:
-              $ref: "#/definitions/inline_response_200"
+              latitude:
+                type: "string"
+                example: "32.47"
+              longitude:
+                type: "string"
+                example: "-86.5"
+              geoid:
+                type: "string"
+                example: "15000US010010201001"
+              EstTotalPop:
+                type: "string"
+                example: "745"
+              EstTotalPop_SE:
+                type: "string"
+                example: "137.530360284557"
+              EstTotalPop25Plus:
+                type: "string"
+                example: "474"
+              EstTotalPop25Plus_SE:
+                type: "string"
+                example: "76.006249743031"
+              EstPropNonHispWhite:
+                type: "string"
+                example: "0.763758389261745"
+              EstPropNonHispWhite_SE:
+                type: "string"
+                example: "0.105181283383554"
+              EstPropPersons25PlusHighSchoolMax:
+                type: "string"
+                example: "0.531645569620253"
+              EstPropPersons25PlusHighSchoolMax_SE:
+                type: "string"
+                example: "0.0764804287594837"
+              EstPropHouseholdsNoAuto:
+                type: "string"
+                example: "0.0387323943661972"
+              EstPropHouseholdsNoAuto_SE:
+                type: "string"
+                example: "0.039252128205847"
+              EstPropPersonsNoHealthIns:
+                type: "string"
+                example: "0.183892617449664"
+              EstPropPersonsNoHealthIns_SE:
+                type: "string"
+                example: "0.0633283349669971"
+              EstPropPersons5PlusNoEnglish:
+                type: "string"
+                example: "0.0750708215297451"
+              EstPropPersons5PlusNoEnglish_SE:
+                type: "string"
+                example: "0.040387048517137"
+              MedianHouseholdIncome:
+                type: "string"
+                example: "$29744.00"
+              MedianHouseholdIncome_SE:
+                type: "string"
+                example: "20687.8291659613"
         400:
           description: "Invalid parameter"
         404:
@@ -54,53 +110,81 @@ definitions:
     properties:
       latitude:
         type: "string"
-        example: "35.7"
+        example: "32.47"
       longitude:
         type: "string"
-        example: "-80.33"
+        example: "-86.5"
       geoid:
         type: "string"
-        example: "15000US450510706011"
+        example: "15000US010010201001"
       EstTotalPop:
         type: "string"
-        example: "1281"
+        example: "745"
+      EstTotalPop_SE:
+        type: "string"
+        example: "137.530360284557"
       EstTotalPop25Plus:
         type: "string"
-        example: "1008"
-      EstPropPersonsNonHispWhite:
+        example: "474"
+      EstTotalPop25Plus_SE:
         type: "string"
-        example: "0.834504294"
-      EstPropHouseholdsNonHispWhite:
+        example: "76.006249743031"
+      EstPropNonHispWhite:
         type: "string"
-        example: "0.838862559"
+        example: "0.763758389261745"
+      EstPropNonHispWhite_SE:
+        type: "string"
+        example: "0.105181283383554"
       EstPropPersons25PlusHighSchoolMax:
         type: "string"
-        example: "0.291666667"
+        example: "0.531645569620253"
+      EstPropPersons25PlusHighSchoolMax_SE:
+        type: "string"
+        example: "0.0764804287594837"
       EstPropHouseholdsNoAuto:
         type: "string"
-        example: "0.085308057"
+        example: "0.0387323943661972"
+      EstPropHouseholdsNoAuto_SE:
+        type: "string"
+        example: "0.039252128205847"
       EstPropPersonsNoHealthIns:
         type: "string"
-        example: "0.099141296"
+        example: "0.183892617449664"
+      EstPropPersonsNoHealthIns_SE:
+        type: "string"
+        example: "0.0633283349669971"
       EstPropPersons5PlusNoEnglish:
         type: "string"
-        example: "0.018771331"
+        example: "0.0750708215297451"
+      EstPropPersons5PlusNoEnglish_SE:
+        type: "string"
+        example: "0.040387048517137"
       MedianHouseholdIncome:
         type: "string"
-        example: "30365"
+        example: "$29744.00"
+      MedianHouseholdIncome_SE:
+        type: "string"
+        example: "20687.8291659613"
     example:
-      EstPropPersonsNoHealthIns: "0.099141296"
-      EstPropHouseholdsNonHispWhite: "0.838862559"
-      EstTotalPop: "1281"
-      EstTotalPop25Plus: "1008"
-      EstPropPersonsNonHispWhite: "0.834504294"
-      latitude: "35.7"
-      geoid: "15000US450510706011"
-      EstPropHouseholdsNoAuto: "0.085308057"
-      MedianHouseholdIncome: "30365"
-      EstPropPersons25PlusHighSchoolMax: "0.291666667"
-      EstPropPersons5PlusNoEnglish: "0.018771331"
-      longitude: "-80.33"
+      EstPropNonHispWhite: "0.763758389261745"
+      EstTotalPop: "745"
+      EstTotalPop25Plus: "474"
+      EstPropPersons25PlusHighSchoolMax_SE: "0.0764804287594837"
+      EstPropPersons5PlusNoEnglish_SE: "0.040387048517137"
+      latitude: "32.47"
+      EstPropHouseholdsNoAuto_SE: "0.039252128205847"
+      EstTotalPop25Plus_SE: "76.006249743031"
+      MedianHouseholdIncome: "$29744.00"
+      EstTotalPop_SE: "137.530360284557"
+      EstPropPersonsNoHealthIns: "0.183892617449664"
+      geoid: "15000US010010201001"
+      EstPropNonHispWhite_SE: "0.105181283383554"
+      EstPropHouseholdsNoAuto: "0.0387323943661972"
+      MedianHouseholdIncome_SE: "20687.8291659613"
+      EstPropPersonsNoHealthIns_SE: "0.0633283349669971"
+      EstPropPersons25PlusHighSchoolMax: "0.531645569620253"
+      EstPropPersons5PlusNoEnglish: "0.0750708215297451"
+      longitude: "-86.5"
 parameters:
   search:
     name: "search"
@@ -111,12 +195,12 @@ parameters:
   latitude:
     name: "latitude"
     in: "query"
-    description: "latitude in decimal degrees format, ie: 35.7"
+    description: "latitude in decimal degrees format, ie: 32.47"
     required: true
     type: "string"
   longitude:
     name: "longitude"
     in: "query"
-    description: "longitude in decimal degrees format, ie: -80.33"
+    description: "longitude in decimal degrees format, ie: -86.5"
     required: true
     type: "string"

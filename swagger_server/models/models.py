@@ -91,18 +91,23 @@ class SocioEconomicDatum(Base):
     __tablename__ = 'socio_economic_data'
 
     id = Column(Integer, primary_key=True, server_default=text("nextval('socio_economic_data_id_seq'::regclass)"))
-    geoid = Column(Text)
-    stusab = Column(Text)
-    featurevariablename = Column(Text)
     estresidentialdensity = Column(BigInteger)
+    geoid = Column(Text)
     estresidentialdensity25plus = Column(BigInteger)
+    estresidentialdensity_se = Column(Float(53))
+    estresidentialdensity25plus_se = Column(Float(53))
     estprobabilitynonhispwhite = Column(Float(53))
-    estprobabilityhouseholdnonhispwhite = Column(Float(53))
+    estprobabilitynonhispwhite_se = Column(Float(53))
     estprobabilityhighschoolmaxeducation = Column(Float(53))
-    estprobabilitynoauto = Column(Float(53))
-    estprobabilitynohealthins = Column(Float(53))
+    estprobabilityhighschoolmaxeducation_se = Column(Float(53))
     estprobabilityesl = Column(Float(53))
+    estprobabilityesl_se = Column(Float(53))
     esthouseholdincome = Column(MONEY)
+    esthouseholdincome_se = Column(Float(53))
+    estprobabilitynoauto = Column(Float(53))
+    estprobabilitynoauto_se = Column(Float(53))
+    estprobabilitynohealthins = Column(Float(53))
+    estprobabilitynohealthins_se = Column(Float(53))
 
 
 class SpatialRefSy(Base):

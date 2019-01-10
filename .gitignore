@@ -68,3 +68,6 @@ target/
 
 .swagger-codegen/
 .travis.yml
+config/database.cfg
+config/database.ini
+swagger_server/ini/connexion.ini
