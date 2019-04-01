@@ -65,7 +65,6 @@ class SocioEconExposures(object):
         lon = kwargs.get('longitude')
 
         session = Session()
-
         # given this lat lon, find the census tract that contains it.
         query = session.query(CensusBlockGrp.geoid). \
                             filter(func.ST_Contains(CensusBlockGrp.geom,
@@ -73,7 +72,9 @@ class SocioEconExposures(object):
         result = session.execute(query)
         for query_return_values in result:
             geoid = query_return_values[0]
+        session.close()
 
+        session = Session()
         # daily resolution of data - return only matched hours for date range
         query = session.query(SocioEconomicDatum.id,
                               SocioEconomicDatum.geoid,
@@ -95,29 +96,29 @@ class SocioEconExposures(object):
                               SocioEconomicDatum.esthouseholdincome_se). \
                                   filter(SocioEconomicDatum.geoid.like("%" + geoid))
 
-        session.close()
 	
         for query_return_values in query:
-            # data['values'].append({'latitude': lat,
             data.update({'latitude': lat,
-                                   'longitude': lon,
-                                   'geoid': query_return_values[1],
-                                   'EstTotalPop': int(query_return_values[2]),
-                                   'EstTotalPop_SE': float(query_return_values[3]),
-                                   'EstTotalPop25Plus': int(query_return_values[4]),
-                                   'EstTotalPop25Plus_SE': float(query_return_values[5]),
-                                   'EstPropPersonsNonHispWhite': float(query_return_values[6]),
-                                   'EstPropPersonsNonHispWhite_SE': float(query_return_values[7]),
-                                   'EstPropPersons25PlusHighSchoolMax': float(query_return_values[8]),
-                                   'EstPropPersons25PlusHighSchoolMax_SE': float(query_return_values[9]),
-                                   'EstPropHouseholdsNoAuto': float(query_return_values[10]),
-                                   'EstPropHouseholdsNoAuto_SE': float(query_return_values[11]),
-                                   'EstPropPersonsNoHealthIns': float(query_return_values[12]),
-                                   'EstPropPersonsNoHealthIns_SE': float(query_return_values[13]),
-                                   'EstPropPersons5PlusNoEnglish': float(query_return_values[14]),
-                                   'EstPropPersons5PlusNoEnglish_SE': float(query_return_values[15]),
-                                   'MedianHouseholdIncome': query_return_values[16],
-                                   'MedianHouseholdIncome_SE': query_return_values[17]})
+                         'longitude': lon,
+                         'geoid': query_return_values[1],
+                         'EstTotalPop': 'n/a' if query_return_values[2] is None else int(query_return_values[2]),
+                         'EstTotalPop_SE': 'n/a' if query_return_values[3] is None else float(query_return_values[3]),
+                         'EstTotalPop25Plus': 'n/a' if query_return_values[4] is None else int(query_return_values[4]),
+                         'EstTotalPop25Plus_SE': 'n/a' if query_return_values[5] is None else float(query_return_values[5]),
+                         'EstPropPersonsNonHispWhite': 'n/a' if query_return_values[6] is None else float(query_return_values[6]),
+                         'EstPropPersonsNonHispWhite_SE': 'n/a' if query_return_values[7] is None else float(query_return_values[7]),
+                         'EstPropPersons25PlusHighSchoolMax': 'n/a' if query_return_values[8] is None else float(query_return_values[8]),
+                         'EstPropPersons25PlusHighSchoolMax_SE': 'n/a' if query_return_values[9] is None else float(query_return_values[9]),
+                         'EstPropHouseholdsNoAuto': 'n/a' if query_return_values[10] is None else float(query_return_values[10]),
+                         'EstPropHouseholdsNoAuto_SE': 'n/a' if query_return_values[11] is None else float(query_return_values[11]),
+                         'EstPropPersonsNoHealthIns': 'n/a' if query_return_values[12] is None else float(query_return_values[12]),
+                         'EstPropPersonsNoHealthIns_SE': 'n/a' if query_return_values[13] is None else float(query_return_values[13]),
+                         'EstPropPersons5PlusNoEnglish': 'n/a' if query_return_values[14] is None else float(query_return_values[14]),
+                         'EstPropPersons5PlusNoEnglish_SE': 'n/a' if query_return_values[15] is None else float(query_return_values[15]),
+                         'MedianHouseholdIncome': 'n/a' if query_return_values[16] is None else query_return_values[16],
+                         'MedianHouseholdIncome_SE': 'n/a' if query_return_values[17] is None else query_return_values[17]})
             break
+
+        session.close()
 
         return jsonify(data)
