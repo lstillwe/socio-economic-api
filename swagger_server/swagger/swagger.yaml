@@ -2,90 +2,34 @@
 swagger: "2.0"
 info:
   description: |
-    This is the socio-environmental-exposures API. It provides American CommunitySurvey data for a given lat, lon location
-    
-    This API returns estimated socio-economic variable values for small geographic areas that may act as indirect indicators of environmental health exposures and/or as indirect indicators of relevant health behaviors.  These data are collected by the U.S. Census Bureau and are public data.
 
-    The variables are taken from the five-year summary data file of the US Census’ American Community Survey (ACS) which is constructed from five annual waves of the Census’ largest household survey.  Approximately, two million households have completed the survey annually since 2005.  (Five waves of the survey before 2005 sampled approximately 500,000 households each.)  See https://www.census.gov/acs/www/methodology/sample-size-and-data-quality/sample-size/ for more detail.  Microdata are available but small area data is only available in summary tabulations.
+    This API returns data from the US Census Bureau American Community Survey (ACS) for a given spatial location of interest.
 
-    Values are provided at the US Census Block Group level, representing the 2012-2016 period for locations within the continental USA.  Block groups, the smallest geographic area for which sample survey data are released, generally contain 600 to 3,000 people (which may be a single apartment building).  Block Groups are aggregates of an average of 39 Blocks each, which are delineated by visible and invisible geographic boundaries.  Block groups, in turn, are aggregated into Census Tracts, which generally have a population size between 1,200 and 8,000 people, with an optimum size of 4,000 people.  Tracts aggregate into counties and counties into states.  Metropolitan and micropolitan areas are aggregates of counties.  See https://www2.census.gov/geo/pdfs/reference/geodiagram.pdf for further detail.  Census geography, even Block Groups, may cross municipal lines and may include both urbanized and rural areas.  Because population is a large factor in determining Census geography, some Block Groups may cover an extensive rural or wilderness area while others are quite compact.  Census Block, Block Group, and Tract boundaries may change somewhat with each decennial Census but remain stable in between Censuses.
+    The API returns estimated values for socio-economic variables and related variables for small geographic areas that may act as indirect indicators of relevant health behaviors and outcomes. The data are collected by the US Census Bureau and are publicly available.
 
-    The Census Bureau is mandated to preserve the confidentiality of individual data.  Therefore, data are often summarized, coarsened into categories, or suppressed by complex secret algorithms (especially, but not limited to household income data).  In addition, because the variables of interest may only apply to a small subset of Block Group missing data can occur.  In some versions of the data, calculated values were suppressed in Block Groups with less than 50 residents.
-    
-    There are, at present, three separate files:
-      1.	trans_geo_cross,
-      2.	Appold_renci_US_22August, and
-      3.	Appold_renci_US_replse_20October18.
-      
-    The first contains a set of geographic identifiers while the second two contain the socio-demographic variables.  The third file differs from the second ([page unavailable due to maintenance]) in that it includes standard errors for each of the socio-demographic estimates.  The variable values on that file were calculated from the 2012-2016 (five-year summary file) of the American Community Survey -- replicate datasets ([page unavailable due to maintenance]).  Because each of the values in the ACS data files are summary statistics calculated from sample survey data for each Block Group, different samples would yield somewhat different values.  Therefore, the Census Bureau generates 80 replicate values for selected variables.  These provide the basis for the estimated standard errors of the estimates ([page unavailable due to maintenance]).
+    The variables are taken from the five-year summary data file of the US Census Bureau ACS, which is constructed from five annual waves of the bureau’s largest household survey. Approximately, two million households have completed the survey annually since calendar year 2005. (Five waves of the survey before 2005 sampled approximately 500,000 households each.) See https://www.census.gov/acs/www/methodology/sample-size-and-data-quality/sample-size/ for more detail. Microdata are available, but small-area data are only available in summary tabulations.
 
-    The second and third contain slightly different values in some cases but there is no reason to link them with each other.  Because there are no standard errors included, the second file is easier to use and adequate for most purposes.  However, it may be useful for some researchers to link one of the data files with the file with geographic identifiers.  GEOID provides a common identifier.  Removing the first seven characters from GEOID allows an easy linkage to ESRI (ArcInfo), Quantum, and other GIS software.  Locations are expressed using WGS84 decimal format. WGS84 is the World Geodetic System for expressing latitude and longitude.  For example, the Statue of Liberty in New York City is at latitude 40.689249 and longitude -74.044500.
+    Values are provided at the US Census Block Group level, representing the 2012-2016 calendar-year period for locations within the continental USA. Block groups, the smallest geographic area for which sample survey data are released, generally contain 600 to 3,000 people (e.g., the size of a single city apartment building). Block Groups are aggregates of an average of 39 Blocks each, each of which is delineated by visible and invisible geographic boundaries. Block groups, in turn, are aggregated into Census Tracts, which generally have a population size between 1,200 and 8,000 people, with an optimum size of 4,000 people. Census Tracts aggregate into counties and counties into states. Metropolitan and micropolitan areas are aggregates of counties. See https://www2.census.gov/geo/pdfs/reference/geodiagram.pdf for further detail. Census geography, even Block Groups, may cross municipal lines and may include both urbanized and rural areas. Because population is a large factor in determining Census geography, some Block Groups may cover an extensive rural or wilderness area while others are quite compact. Census Block, Block Group, and Tract boundaries may change somewhat with each decennial Census, but remain stable in between Censuses.
 
-    More detail on the variables is in the tables below.
+    The US Census Bureau is mandated to preserve the confidentiality of individual-level data. Therefore, data are often summarized, coarsened into categories, or suppressed by complex secret algorithms (especially, but not limited to household income data). In addition, because the variables of interest may only apply to a small subset of Block Group missing data can occur. In some versions of the data, calculated values are suppressed in Block Groups with less than 50 residents.
 
-    |This file contains geographic identifiers only||||
-    |---|---|---|---|
-    |geoid|Full Census block group ID|This is the key which links this geographic identifier file to the data files
-    |state|FIPS State code
-    |stusab|State abbreviation
-    |county|FIPS County code
-    |cntyname|County name
-    |tract|Tract
-    |bg|Block group
-    |cbsa13|FIPS CBSA (2013) code|Census Core-based Statistical Area code
-    |cbsatype13|CBSA type (2013)|Metropolitan area/Micropolitan area/Rural (last is blank)
-    |cbsaname|2013 CBSA name
-    |ur|Urban/rural|Urban or rural
-    |ua|FIPS Urban area code
-    |uaname|UA/Urban cluster name
-    |placefp14|FIPS Place (2014) code
-    |placenm14|Place name 2014
-    |cd116|116th Congressional district|These need to be used in tandem with state identifiers|These are identified by code only
-    |sldu16|State legislative district, upper (2016)|Format may vary by state|These are identified by code only
-    |sldl16|State legislative district, lower (2016)|Format may vary by state|These are identified by code only
-    |hsa|Hospital service areas (2016) code
-    |hsaname|Hospital service areas 2016 name
+    Standard errors for the socio-demographic variables are provided. Because each of the values in the ACS data files are summary statistics calculated from sample survey data for each Block Group, different samples yield somewhat different values. Therefore, the Census Bureau generates 80 replicate values for selected variables. These provide the basis for the estimated standard errors of the estimates.
 
+    The currently available variables are listed here:
+    - **GEOID – a FIPS like code for identifying which census block group this data pertains to, see (https://www.census.gov/geo/reference/geoidentifiers.html)
+    - **EstTotalPop - estimated population count
+    - **EstTotalPop25Plus - estimated population count that are age 25 and older
+    - **MedianHouseholdIncome - estimated median household income
+    - **EstPropHouseholdsNoAuto - estimated proportion of adults without a car
+    - **EstPropNonHispWhite – estimated proportion of households headed by non-Hispanic whites
+    - **EstPropPersonsNoHealthIns - estimated proportion of adults without health insurance
+    - **EstPropPersons25PlusHighSchoolMax - estimated porportion of adults age 25 or higher with at most a high school degree
+    - **EstPropPersons5PlusNoEnglish - estimated proportion of people speaking a language other than English at home
 
-    |These two files contain slightly different versions of the socio-economic data||||
-    |---|---|---|---|
-    |Appold_renci_US_22August|Appold_renci_US_replse_20October18
-    |**Basic data**||||
-    |GEOID|GEOID|Full Census block group ID|to aid linking with other data and mapping
-    |STUSAB||Two-letter state identifier
-    |total_pop2016|tot_pop|total population in block group
-    |total_25plus|pop25plus|population aged 25 and up in block group
-    |nHwtindiv|prp_nHwh|proportion of the block group population that is non-Hispanic white|undefined for block groups with 0 population
-    |median_HH_inc|median_inc|median household income|undefined for block groups with 0 households; subject to Census disclosure rules
-    |prp_nHwHHs||proportion of the block group households that are non-Hispanic white
-    |prp_HSminus|prp_HSmin|proportion of the block group population aged 25 and up with a HS diploma or less|undefined for block groups with 0 population 25 and older
-    |prp_no_auto|prp_noveh|proportion of the block group households with no automobile|undefined for block groups with 0 households
-    |prp_not_insured|prp_noins|proportion of the block group population with no health insurance|undefined for block groups with 0 population; no information for approximately 20 blockgroups with 0 households
-    |prp_foreign|prp_forlang|proportion of the block group population aged 5 plus sometimes speaking a language other than English at home|undefined for block groups with 0 population
-    ||**Standard errors**
-    |tot_pop_se|these correspond to the estimates above|there are s.e.s for zero estimates but these are coded missing if the estimates are missing due to data suppression
-    ||pop25plus_se
-    ||prp_nHwh_se
-    ||median_inc_se
-    ||prp_HSmin_se
-    ||prp_noveh_se
-    ||prp_noins_se
-    ||prp_forlang_se
-    |||||
-    |||||
-    
-    
-    
-    [These may be the present names of the variables]
-      - **GEOID** – a FIPS like code for identifying which census block group this data pertains to, see (https://www.census.gov/geo/reference/geoidentifiers.html)
-      - **EstTotalPop** - estimated population count
-      - **EstTotalPop25Plus** - estimated population count that are age 25 and older
-      - **MedianHouseholdIncome** - estimated median household income
-      - **EstPropHouseholdsNoAuto** - estimated proportion of adults without a car
-      - **EstPropNonHispWhite** – estimated proportion of households headed by non-Hispanic whites
-      - **EstPropPersonsNoHealthIns** - estimated proportion of adults without health insurance
-      - **EstPropPersons25PlusHighSchoolMax** - estimated porportion of adults age 25 or higher with at most a high school degree
-      - **EstPropPersons5PlusNoEnglish** - estimated proportion of people speaking a language other than English at home
+    Locations are expressed using WGS84 decimal format. WGS84 is the World Geodetic System for expressing latitude and longitude. For example, Raleigh, North Carolina is at latitude 35.7796 and longitude -78.6382.
+
+    Additional details on the data can be found in this documentation: (https://github.com/lstillwe/socio-economic-api/blob/master/docs/CensusData.md)
+
   version: "1.0.1"
   title: "Socio-Environmental Exposures API"
   contact:
