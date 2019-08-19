@@ -24,7 +24,45 @@ class CensusBlockGrp(Base):
     awater = Column(Numeric)
     intptlat = Column(String(11))
     intptlon = Column(String(12))
-    geom = Column(Geometry(u'MULTIPOLYGON', 4269))
+    geom = Column(Geometry(u'MULTIPOLYGON', 4269), index=True)
+
+
+class CensusBlockGrps2011(Base):
+    __tablename__ = 'census_block_grps_2011'
+
+    gid = Column(Integer, primary_key=True, server_default=text("nextval('census_block_grps_2011_gid_seq'::regclass)"))
+    statefp = Column(String(2))
+    countyfp = Column(String(3))
+    tractce = Column(String(6))
+    blkgrpce = Column(String(1))
+    geoid = Column(String(12))
+    namelsad = Column(String(13))
+    mtfcc = Column(String(5))
+    funcstat = Column(String(1))
+    aland = Column(Numeric)
+    awater = Column(Numeric)
+    intptlat = Column(String(11))
+    intptlon = Column(String(12))
+    geom = Column(Geometry(u'MULTIPOLYGON', 4269), index=True)
+
+
+class CensusBlockGrps2016(Base):
+    __tablename__ = 'census_block_grps_2016'
+
+    gid = Column(Integer, primary_key=True, server_default=text("nextval('census_block_grps_2016_gid_seq'::regclass)"))
+    statefp = Column(String(2))
+    countyfp = Column(String(3))
+    tractce = Column(String(6))
+    blkgrpce = Column(String(1))
+    geoid = Column(String(12))
+    namelsad = Column(String(13))
+    mtfcc = Column(String(5))
+    funcstat = Column(String(1))
+    aland = Column(Numeric)
+    awater = Column(Numeric)
+    intptlat = Column(String(11))
+    intptlon = Column(String(12))
+    geom = Column(Geometry(u'MULTIPOLYGON', 4269), index=True)
 
 
 t_geography_columns = Table(
@@ -49,6 +87,24 @@ t_geometry_columns = Table(
     Column('srid', Integer),
     Column('type', String(30))
 )
+
+
+class OldSocioEconomicDatum(Base):
+    __tablename__ = 'old_socio_economic_data'
+
+    id = Column(Integer, primary_key=True, server_default=text("nextval('socio_economic_data_id_seq'::regclass)"))
+    geoid = Column(Text)
+    stusab = Column(Text)
+    featurevariablename = Column(Text)
+    estresidentialdensity = Column(BigInteger)
+    estresidentialdensity25plus = Column(BigInteger)
+    estprobabilitynonhispwhite = Column(Float(53))
+    estprobabilityhouseholdnonhispwhite = Column(Float(53))
+    estprobabilityhighschoolmaxeducation = Column(Float(53))
+    estprobabilitynoauto = Column(Float(53))
+    estprobabilitynohealthins = Column(Float(53))
+    estprobabilityesl = Column(Float(53))
+    esthouseholdincome = Column(MONEY)
 
 
 t_raster_columns = Table(
@@ -90,9 +146,9 @@ t_raster_overviews = Table(
 class SocioEconomicDatum(Base):
     __tablename__ = 'socio_economic_data'
 
-    id = Column(Integer, primary_key=True, server_default=text("nextval('socio_economic_data_id_seq'::regclass)"))
+    id = Column(Integer, primary_key=True, server_default=text("nextval('socio_economic_data_id_seq1'::regclass)"))
     estresidentialdensity = Column(BigInteger)
-    geoid = Column(Text)
+    geoid = Column(Text, unique=True)
     estresidentialdensity25plus = Column(BigInteger)
     estresidentialdensity_se = Column(Float(53))
     estresidentialdensity25plus_se = Column(Float(53))
@@ -108,6 +164,87 @@ class SocioEconomicDatum(Base):
     estprobabilitynoauto_se = Column(Float(53))
     estprobabilitynohealthins = Column(Float(53))
     estprobabilitynohealthins_se = Column(Float(53))
+
+
+class SocioEconomicData2019(Base):
+    __tablename__ = 'socio_economic_data_2019'
+
+    id = Column(Integer, primary_key=True, server_default=text("nextval('socio_economic_data_2019_id_seq'::regclass)"))
+    bgid2016 = Column(Text, unique=True)
+    bgid2011 = Column(Text, unique=True)
+    bgid2010 = Column(Text)
+    latitude = Column(Float(53))
+    longitude = Column(Float(53))
+    tract = Column(Text)
+    st_cnty = Column(Text)
+    stusab = Column(Text)
+    state_code = Column(Text)
+    county_name = Column(Text)
+    cbsa_code = Column(Text)
+    cbsa_title = Column(Text)
+    csa_code = Column(Text)
+    csa_title = Column(Text)
+    metro_micro = Column(Text)
+    urban_code = Column(Text)
+    urban_name = Column(Text)
+    area_type = Column(Text)
+    place_code = Column(Text)
+    place_name = Column(Text)
+    area_kmsq = Column(Float(53))
+    congressional_district = Column(Text)
+    state_upper_legislative_district = Column(Text)
+    state_lower_legislative_district = Column(Text)
+    unified_school_district = Column(Text)
+    hospital_service_area_code = Column(Text)
+    hospital_service_area_city = Column(Text)
+    hospital_service_area_state = Column(Text)
+    hospital_referral_area_code = Column(Text)
+    hospital_referral_area_city = Column(Text)
+    hospital_referral_area_state = Column(Text)
+    estpopulation_2011 = Column(BigInteger)
+    estpopulation_2016 = Column(BigInteger)
+    estpopulation_2016se = Column(Float(53))
+    estresidentialdensity_2011 = Column(Float(53))
+    estresidentialdensity_2016 = Column(Float(53))
+    estresidentialdensity_2016se = Column(Float(53))
+    estmedianhouseholdincome_2011 = Column(MONEY)
+    estmedianhouseholdincome_2016 = Column(MONEY)
+    estmedianhouseholdincome_2016se = Column(Float(53))
+    estpropnonhispwhite_2011 = Column(Float(53))
+    estpropnonhispwhite_2016 = Column(Float(53))
+    estpropnonhispwhite_2016se = Column(Float(53))
+    estprophighschoolmaxeducation_2011 = Column(Float(53))
+    estprophighschoolmaxeducation_2016 = Column(Float(53))
+    estprophighschoolmaxeducation_2016se = Column(Float(53))
+    estpropnoauto_2011 = Column(Float(53))
+    estpropnoauto_2016 = Column(Float(53))
+    estpropnoauto_2016se = Column(Float(53))
+    estpropesl_2011 = Column(Float(53))
+    estpropesl_2016 = Column(Float(53))
+    estpropesl_2016se = Column(Float(53))
+    estpropnohealthins_2016 = Column(Float(53))
+    estpropnohealthins_2016se = Column(Float(53))
+    estpropfemalehouseholdnospouse_2011 = Column(Float(53))
+    estpropfemalehouseholdnospouse_2016 = Column(Float(53))
+    estpropfemalehouseholdnospouse_2016se = Column(Float(53))
+    estpropfemalehouseholdfamilychild_2011 = Column(Float(53))
+    estpropfemalehouseholdfamilychild_2016 = Column(Float(53))
+    estpropfemalehouseholdfamilychild_2016se = Column(Float(53))
+    estpropfemalehouseholdanychild_2011 = Column(Float(53))
+    estpropfemalehouseholdanychild_2016 = Column(Float(53))
+    estpropfemalehouseholdanychild_2016se = Column(Float(53))
+    estprophighschooldropout_2011 = Column(Float(53))
+    estprophighschooldropout_2016 = Column(Float(53))
+    estprophighschooldropoutnowork_2011 = Column(Float(53))
+    estprophighschooldropoutnowork_2016 = Column(Float(53))
+    estprophouseholdssi_2011 = Column(Float(53))
+    estprophouseholdssi_2016 = Column(Float(53))
+    estprophouseholdssi_2016se = Column(Float(53))
+    estprophouseholdpa_2011 = Column(Float(53))
+    estprophouseholdpa_2016 = Column(Float(53))
+    estprophouseholdpa_2016se = Column(Float(53))
+    estpropmalelittlework_2011 = Column(Float(53))
+    estpropmalelittlework_2016 = Column(Float(53))
 
 
 class SpatialRefSy(Base):

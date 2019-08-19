@@ -16,20 +16,30 @@ class InlineResponse200(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, values: InlineResponse200Values=None):  # noqa: E501
+    def __init__(self, latitude: str=None, longitude: str=None, values: List[InlineResponse200Values]=None):  # noqa: E501
         """InlineResponse200 - a model defined in Swagger
 
+        :param latitude: The latitude of this InlineResponse200.  # noqa: E501
+        :type latitude: str
+        :param longitude: The longitude of this InlineResponse200.  # noqa: E501
+        :type longitude: str
         :param values: The values of this InlineResponse200.  # noqa: E501
-        :type values: InlineResponse200Values
+        :type values: List[InlineResponse200Values]
         """
         self.swagger_types = {
-            'values': InlineResponse200Values
+            'latitude': str,
+            'longitude': str,
+            'values': List[InlineResponse200Values]
         }
 
         self.attribute_map = {
+            'latitude': 'latitude',
+            'longitude': 'longitude',
             'values': 'values'
         }
 
+        self._latitude = latitude
+        self._longitude = longitude
         self._values = values
 
     @classmethod
@@ -44,22 +54,64 @@ class InlineResponse200(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def values(self) -> InlineResponse200Values:
+    def latitude(self) -> str:
+        """Gets the latitude of this InlineResponse200.
+
+
+        :return: The latitude of this InlineResponse200.
+        :rtype: str
+        """
+        return self._latitude
+
+    @latitude.setter
+    def latitude(self, latitude: str):
+        """Sets the latitude of this InlineResponse200.
+
+
+        :param latitude: The latitude of this InlineResponse200.
+        :type latitude: str
+        """
+
+        self._latitude = latitude
+
+    @property
+    def longitude(self) -> str:
+        """Gets the longitude of this InlineResponse200.
+
+
+        :return: The longitude of this InlineResponse200.
+        :rtype: str
+        """
+        return self._longitude
+
+    @longitude.setter
+    def longitude(self, longitude: str):
+        """Sets the longitude of this InlineResponse200.
+
+
+        :param longitude: The longitude of this InlineResponse200.
+        :type longitude: str
+        """
+
+        self._longitude = longitude
+
+    @property
+    def values(self) -> List[InlineResponse200Values]:
         """Gets the values of this InlineResponse200.
 
 
         :return: The values of this InlineResponse200.
-        :rtype: InlineResponse200Values
+        :rtype: List[InlineResponse200Values]
         """
         return self._values
 
     @values.setter
-    def values(self, values: InlineResponse200Values):
+    def values(self, values: List[InlineResponse200Values]):
         """Sets the values of this InlineResponse200.
 
 
         :param values: The values of this InlineResponse200.
-        :type values: InlineResponse200Values
+        :type values: List[InlineResponse200Values]
         """
 
         self._values = values

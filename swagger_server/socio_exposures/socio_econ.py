@@ -2,18 +2,20 @@ import sys
 from configparser import ConfigParser
 from datetime import datetime, timedelta
 from sqlalchemy import extract, func, cast
+from sqlalchemy.orm import load_only
 from geoalchemy2 import Geography
-
 import pytz
-from swagger_server.controllers import Session
 from flask import jsonify
-from swagger_server.models.models import SocioEconomicDatum, CensusBlockGrp
+from swagger_server.models.models import SocioEconomicData2019, CensusBlockGrps2011, CensusBlockGrps2016
+from swagger_server.socio_exposures.statics import Statics as s
+from swagger_server.controllers import Session
+from itertools import zip_longest as zip
+from enum import Enum
 
 parser = ConfigParser()
 parser.read('swagger_server/ini/connexion.ini')
 sys.path.append(parser.get('sys-path', 'exposures'))
 sys.path.append(parser.get('sys-path', 'controllers'))
-from enum import Enum
 
 
 class MeasurementType(Enum):
@@ -29,6 +31,8 @@ class MeasurementType(Enum):
         else:
             return True
 
+
+
 class SocioEconExposures(object):
 
     def is_valid_lat_lon(self, **kwargs):
@@ -40,6 +44,7 @@ class SocioEconExposures(object):
 
         return True, ''
 
+
     def validate_parameters(self, **kwargs):
         lat_lon_valid, msg = self.is_valid_lat_lon(**kwargs)
 
@@ -47,9 +52,78 @@ class SocioEconExposures(object):
             return False, msg
         else:
             return True, ''
+ 
+
+    def get_year_from_range(self, year_range):
+
+        return s.Socio_Econ_Data_Years.get(year_range, "All")
+
+
+    # get census geoid for specific year range - returns dict because could
+    # be different ones if year range is "All"
+    def get_census_geoid(self, lat, lon, year):
+        geoid = {}
+
+        if (year == "All"):
+            for year_value in s.Socio_Econ_Data_Years.values():
+                census_obj_name = "CensusBlockGrps" + year_value
+                census_obj = globals()[census_obj_name]
+
+                session = Session()
+                # given this lat lon, find the census tract that contains it.
+                query = session.query(census_obj.geoid). \
+                                filter(func.ST_Contains(census_obj.geom,
+                                        func.ST_GeomFromText("POINT(" + str(lon) + " " + str(lat) + ")", 4269)))
+                result = session.execute(query)
+                for query_return_values in result:
+                    tmp_geoid = query_return_values[0]
+
+                if (len(tmp_geoid) > 14):
+                    geoid[year_value] = tmp_geoid[-14:]
+                else:
+                    geoid[year_value] = tmp_geoid
+
+                session.close()
+
+        else: 
+            census_obj_name = "CensusBlockGrps" + year
+            census_obj = globals()[census_obj_name]
+
+            session = Session()
+            # given this lat lon, find the census tract that contains it.
+            query = session.query(census_obj.geoid). \
+                            filter(func.ST_Contains(census_obj.geom,
+                                   func.ST_GeomFromText("POINT(" + str(lon) + " " + str(lat) + ")", 4269)))
+            result = session.execute(query)
+            for query_return_values in result:
+                tmp_geoid = query_return_values[0]
+
+            if (len(tmp_geoid) > 14):
+                geoid[year] = tmp_geoid[-14:]
+            else:
+                geoid[year] = tmp_geoid
+
+            session.close()
+  
+        return geoid
+
+
+    def get_socio_econ_data(self, year, geoid):
+
+        session = Session()
+        cols = s.Socio_Econ_Data_Columns[year].keys()
+
+        query = session.query(SocioEconomicData2019). \
+                                  options(load_only(*cols)). \
+                                  filter(SocioEconomicData2019.bgid2016.like("%" + geoid[year]))
+        result = session.execute(query)
+
+        session.close()
+        return result
+        
 
     def get_values(self, **kwargs):
-        # latitude, longitude
+        # latitude, longitude, years
 
         # validate input from user
         is_valid, message = self.validate_parameters(**kwargs)
@@ -58,67 +132,48 @@ class SocioEconExposures(object):
 
         # create data object
         data = {}
-        # data['values'] = []
+        data['values'] = []
 
-        # retrieve query result for each lat,lon pair and add to data object
+        # retrieve query result for lat,lon pair and year range and add to data object
         lat = kwargs.get('latitude')
         lon = kwargs.get('longitude')
+        year_range = kwargs.get('years')
 
-        session = Session()
-        # given this lat lon, find the census tract that contains it.
-        query = session.query(CensusBlockGrp.geoid). \
-                            filter(func.ST_Contains(CensusBlockGrp.geom,
-                                    func.ST_GeomFromText("POINT(" + str(lon) + " " + str(lat) + ")", 4269)))
-        result = session.execute(query)
-        for query_return_values in result:
-            geoid = query_return_values[0]
-        session.close()
+        year = self.get_year_from_range(year_range)
+        geoid = self.get_census_geoid(lat, lon, year)
+        
+        data.update({'latitude': lat, 'longitude': lon})
 
-        session = Session()
-        # daily resolution of data - return only matched hours for date range
-        query = session.query(SocioEconomicDatum.id,
-                              SocioEconomicDatum.geoid,
-                              SocioEconomicDatum.estresidentialdensity,
-                              SocioEconomicDatum.estresidentialdensity_se,
-                              SocioEconomicDatum.estresidentialdensity25plus,
-                              SocioEconomicDatum.estresidentialdensity25plus_se,
-                              SocioEconomicDatum.estprobabilitynonhispwhite,
-                              SocioEconomicDatum.estprobabilitynonhispwhite_se,
-                              SocioEconomicDatum.estprobabilityhighschoolmaxeducation,
-                              SocioEconomicDatum.estprobabilityhighschoolmaxeducation_se,
-                              SocioEconomicDatum.estprobabilitynoauto,
-                              SocioEconomicDatum.estprobabilitynoauto_se,
-                              SocioEconomicDatum.estprobabilitynohealthins,
-                              SocioEconomicDatum.estprobabilitynohealthins_se,
-                              SocioEconomicDatum.estprobabilityesl,
-                              SocioEconomicDatum.estprobabilityesl_se,
-                              SocioEconomicDatum.esthouseholdincome,
-                              SocioEconomicDatum.esthouseholdincome_se). \
-                                  filter(SocioEconomicDatum.geoid.like("%" + geoid))
+        for year_key in geoid:
+            result = self.get_socio_econ_data(year_key, geoid)
 
-	
-        for query_return_values in query:
-            data.update({'latitude': lat,
-                         'longitude': lon,
-                         'geoid': query_return_values[1],
-                         'EstTotalPop': 'n/a' if query_return_values[2] is None else int(query_return_values[2]),
-                         'EstTotalPop_SE': 'n/a' if query_return_values[3] is None else float(query_return_values[3]),
-                         'EstTotalPop25Plus': 'n/a' if query_return_values[4] is None else int(query_return_values[4]),
-                         'EstTotalPop25Plus_SE': 'n/a' if query_return_values[5] is None else float(query_return_values[5]),
-                         'EstPropPersonsNonHispWhite': 'n/a' if query_return_values[6] is None else float(query_return_values[6]),
-                         'EstPropPersonsNonHispWhite_SE': 'n/a' if query_return_values[7] is None else float(query_return_values[7]),
-                         'EstPropPersons25PlusHighSchoolMax': 'n/a' if query_return_values[8] is None else float(query_return_values[8]),
-                         'EstPropPersons25PlusHighSchoolMax_SE': 'n/a' if query_return_values[9] is None else float(query_return_values[9]),
-                         'EstPropHouseholdsNoAuto': 'n/a' if query_return_values[10] is None else float(query_return_values[10]),
-                         'EstPropHouseholdsNoAuto_SE': 'n/a' if query_return_values[11] is None else float(query_return_values[11]),
-                         'EstPropPersonsNoHealthIns': 'n/a' if query_return_values[12] is None else float(query_return_values[12]),
-                         'EstPropPersonsNoHealthIns_SE': 'n/a' if query_return_values[13] is None else float(query_return_values[13]),
-                         'EstPropPersons5PlusNoEnglish': 'n/a' if query_return_values[14] is None else float(query_return_values[14]),
-                         'EstPropPersons5PlusNoEnglish_SE': 'n/a' if query_return_values[15] is None else float(query_return_values[15]),
-                         'MedianHouseholdIncome': 'n/a' if query_return_values[16] is None else query_return_values[16],
-                         'MedianHouseholdIncome_SE': 'n/a' if query_return_values[17] is None else query_return_values[17]})
-            break
+            for query_return_values in result:
 
-        session.close()
+                # change any null values to 'n/a'
+                new_query_return_list = []
+                for val in query_return_values:
+                    if(val is None):
+                        new_query_return_list.append("n/a")
+                    else:
+                        new_query_return_list.append(val)
+
+                tmp_dict = {key: val for key, val in zip(s.Socio_Econ_Data_Columns[year_key].values(), new_query_return_list)}
+
+                # fix some things up ...
+                # get rid of the id
+                del tmp_dict["id"]
+                # change format of geoid
+                tmp_dict["geoid"] = '15000US' + tmp_dict["geoid"]
+
+                # add year range
+                for dkey, dvalue in s.Socio_Econ_Data_Years.items():
+                    if(dvalue == year_key):
+                        dict_key = dkey
+                        break
+                tmp_dict.update({"years": dict_key})
+
+                data['values'].append(tmp_dict)
+
+                break
 
         return jsonify(data)
