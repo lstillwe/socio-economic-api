@@ -1,441 +1,408 @@
 ---
-swagger: "2.0"
+openapi: 3.0.1
 info:
-  description: "\nThis API returns data from the US Census Bureau American Community\
-    \ Survey (ACS) for a given spatial location of interest.\n\nThe API returns estimated\
-    \ values for socio-economic variables and related variables for small geographic\
-    \ areas that may act as indirect indicators of relevant health behaviors and outcomes.\
-    \ The data are collected by the US Census Bureau and are publicly available.\n\
-    \nThe variables are taken from the five-year summary data file of the US Census\
-    \ Bureau ACS, which is constructed from five annual waves of the bureau’s largest\
-    \ household survey. Approximately, two million households have completed the survey\
-    \ annually since calendar year 2005. (Five waves of the survey before 2005 sampled\
-    \ approximately 500,000 households each.) See\_https://www.census.gov/acs/www/methodology/sample-size-and-data-quality/sample-size/\_\
-    for more detail. Microdata are available, but small-area data are only available\
-    \ in summary tabulations.\n\nValues are provided at the US Census Block Group\
-    \ level, representing the 2012-2016 calendar-year period for locations within\
-    \ the continental USA. Block groups, the smallest geographic area for which sample\
-    \ survey data are released, generally contain 600 to 3,000 people (e.g., the size\
-    \ of a single city apartment building). Block Groups are aggregates of an average\
-    \ of 39 Blocks each, each of which is delineated by visible and invisible geographic\
-    \ boundaries. Block groups, in turn, are aggregated into Census Tracts, which\
-    \ generally have a population size between 1,200 and 8,000 people, with an optimum\
-    \ size of 4,000 people. Census Tracts aggregate into counties and counties into\
-    \ states. Metropolitan and micropolitan areas are aggregates of counties. See\_\
-    https://www2.census.gov/geo/pdfs/reference/geodiagram.pdf\_for further detail.\
-    \ Census geography, even Block Groups, may cross municipal lines and may include\
-    \ both urbanized and rural areas. Because population is a large factor in determining\
-    \ Census geography, some Block Groups may cover an extensive rural or wilderness\
-    \ area while others are quite compact. Census Block, Block Group, and Tract boundaries\
-    \ may change somewhat with each decennial Census, but remain stable in between\
-    \ Censuses.\n\nThe US Census Bureau is mandated to preserve the confidentiality\
-    \ of individual-level data. Therefore, data are often summarized, coarsened into\
-    \ categories, or suppressed by complex secret algorithms (especially, but not\
-    \ limited to household income data). In addition, because the variables of interest\
-    \ may only apply to a small subset of Block Group missing data can occur. In some\
-    \ versions of the data, calculated values are suppressed in Block Groups with\
-    \ less than 50 residents.\n\nStandard errors for the socio-demographic variables\
-    \ are provided. Because each of the values in the ACS data files are summary statistics\
-    \ calculated from sample survey data for each Block Group, different samples yield\
-    \ somewhat different values. Therefore, the Census Bureau generates 80 replicate\
-    \ values for selected variables. These provide the basis for the estimated standard\
-    \ errors of the estimates.\n\nThe currently available variables are listed here:\n\
-    \n **(2007-2011 data)**\n\
-    - **YEARS**\_– the range of years for which this census data is valid\n\
-    - **GEOID**\_– a FIPS like code for identifying which census block group this data\
-    \ pertains to, see (https://www.census.gov/geo/reference/geoidentifiers.html)\n\
-    - **EstTotalPopulation**\_- estimated population count in block group\n- **MedianHouseholdIncome**\_- estimated\
-    \ median household income\n- **EstResidentialDensity**\_- block group population density\n\
-    - **EstPropNonHispWhite**\_– proportion of the block group population that is non-Hispanic white\n\
-    - **EstPropPersons5PlusNoEnglish**\_- proportion of the block group population aged 5 plus\
-    \ sometimes speaking a language other than English at home\n\
-    - **EstPropMaleLittleWork**\_- proportion of block group males aged 16-64 who worked less\
-    \ than 26 weeks in the previous year\n- **EstPropHouseholdsNoAuto**\_- proportion of the\
-    \ block group households with no automobile\n- **EstPropHouseholdSSI**\_- proportion of the\
-    \ block group households receiving Supplemental Security Income\n\
-    - **EstPropHouseholdPA**\_- proportion of the block group households receiving Public Assistance\n\
-    - **EstPropHighSchoolMaxEducation**\_- proportion of the block group population aged 25 and up with\
-    \ a HS diploma or less\n- **EstPropHighSchoolDropout**\_- proportion of the block group\
-    \ 16-19 year olds who are neither attending school nor HS graduates\n\
-    - **EstPropHighSchoolDropoutNoWork**\_- proportion of the block group 16-19 year olds who are\
-    \ neither attending school nor HS graduates and are without work\n\
-    - **EstPropFemaleHouseholdNoSpouse**\_- proportion of the block group family households headed\
-    \ by a female (no male partner present)\n- **EstPropFemaleHouseholdFamilyChild**\_- proportion\
-    \ of the block group family households headed by a female with related children aged 18 or under\
-    \ (no male partner present)\n- **EstPropFemaleHouseholdAnyChild**\_- proportion of the block group\
-    \ total households headed by a female with any children aged 18 or less (no male partner present)\n\
-    \n **(2012-2016 data)**\n\
-    - **YEARS**\_– the range of years for which this census data is valid\n\
-    - **GEOID**\_– a FIPS like code for identifying which census block group this data\
-    \ pertains to, see (https://www.census.gov/geo/reference/geoidentifiers.html)\n\
-    - **EstTotalPopulation**\_- estimated population count in block group\n\
-    - **EstTotalPopulation_SE**\_- standard error of total population in block group\n\ 
-    - **EstResidentialDensity**\_- block group population density\n\
-    - **EstResidentialDensity_SE**\_- standard error of residential population density in block group\n\
-    - **MedianHouseholdIncome**\_- estimated median household income\n\
-    - **MedianHouseholdIncome_SE**\_- standard error of median household income\n\
-    - **EstPropPersonsNoHealthIns**\_- proportion of the block group population with no health insurance 
-    - **EstPropPersonsNoHealthIns_SE**\_- standard error of proportion of the block group population\
-    \ with no health insurance\n\
-    - **EstPropNonHispWhite**\_– proportion of the block group population that is non-Hispanic white\n\
-    - **EstPropNonHispWhite_SE**\_- standard error of proportion of the block group population that
-    \ is non-Hispanic white\n\
-    - **EstPropPersons5PlusNoEnglish**\_- proportion of the block group population aged 5 plus\
-    \ sometimes speaking a language other than English at home\n\
-    - **EstPropPersons5PlusNoEnglish_SE**\_- standard error of proportion of the block group population\
-    \ aged 5 plus sometimes speaking a language other than English at home\n\
-    - **EstPropMaleLittleWork**\_- proportion of block group males aged 16-64 who worked less\
-    \ than 26 weeks in the previous year\n- **EstPropHouseholdsNoAuto**\_- proportion of the\
-    \ block group households with no automobile\n\
-    - **EstPropHouseholdsNoAuto_SE**\_- standard error of proportion of the block group households with no automobile\n\
-    - **EstPropHouseholdSSI**\_- proportion of the\
-    \ block group households receiving Supplemental Security Income\n\
-    - **EstPropHouseholdSSI_SE**\_- standard error of proportion of the block group households\
-    \ receiving Supplemental Security Income\n\
-    - **EstPropHouseholdPA**\_- proportion of the block group households receiving Public Assistance\n\
-    - **EstPropHouseholdPA_SE**\_- standard error of proportion of the block group households receiving Public Assistance\n\
-    - **EstPropHighSchoolMaxEducation**\_- proportion of the block group population aged 25 and up with\
-    \ a HS diploma or less\n- **EstPropHighSchoolMaxEducation_SE**\_- standard error of proportion of the block\
-    \ group population aged 25 and up with a HS diploma or less\n\
-    - **EstPropHighSchoolDropout**\_- proportion of the block group 16-19 year olds who are neither attending\
-    \ school nor HS graduates\n\
-    - **EstPropHighSchoolDropoutNoWork**\_- proportion of the block group 16-19 year olds who are\
-    \ neither attending school nor HS graduates and are without work\n\
-    - **EstPropFemaleHouseholdNoSpouse**\_- proportion of the block group family households headed\
-    \ by a female (no male partner present)\n- **EstPropFemaleHouseholdNoSpouse_SE**\_- standard error\
-    \ of proportion of the block group family households headed by a female (no male partner present)\n\
-    - **EstPropFemaleHouseholdFamilyChild**\_- proportion of the block group family households headed by\
-    \ a female with related children aged 18 or under (no male partner present)\n\
-    - **EstPropFemaleHouseholdFamilyChild_SE**\_- standard error of proportion of the block group family\
-    \ households headed by a female with related children aged 18 or under (no male partner present)\n\
-    - **EstPropFemaleHouseholdAnyChild**\_- proportion of the block group total households headed by a\
-    \ female with any children aged 18 or less (no male partner present)\n\
-    - **EstPropFemaleHouseholdAnyChild_SE**\_- standard error of proportion of the block group total households\
-    \ headed by a female with any children aged 18 or less (no male partner present)\n\
-    \nLocations are expressed using WGS84 decimal format.\
-    \ WGS84 is the World Geodetic System for expressing latitude and longitude.\
-    \ For example, Raleigh, North Carolina is at latitude 35.7796 and longitude -78.6382.\n\
-    \nAdditional details on the data can be found in this documentation: (https://github.com/lstillwe/socio-economic-api/blob/master/docs/CensusData.md)\n"
-  version: "1.0.1"
-  title: "Socio-Environmental Exposures API"
+  title: Socio-Environmental Exposures API
+  description: |2
+
+    This API returns data from the US Census Bureau American Community Survey (ACS) for a given spatial location of interest.
+
+    The API returns estimated values for socio-economic variables and related variables for small geographic areas that may act as indirect indicators of relevant health behaviors and outcomes. The data are collected by the US Census Bureau and are publicly available.
+
+    The variables are taken from the five-year summary data file of the US Census Bureau ACS, which is constructed from five annual waves of the bureau’s largest household survey. Approximately, two million households have completed the survey annually since calendar year 2005. (Five waves of the survey before 2005 sampled approximately 500,000 households each.) See https://www.census.gov/acs/www/methodology/sample-size-and-data-quality/sample-size/ for more detail. Microdata are available, but small-area data are only available in summary tabulations.
+
+    Values are provided at the US Census Block Group level, representing the 2007-2011 and 2012-2016 calendar-year periods for locations within the continental USA. Block groups, the smallest geographic area for which sample survey data are released, generally contain 600 to 3,000 people (e.g., the size of a single city apartment building). Block Groups are aggregates of an average of 39 Blocks each, each of which is delineated by visible and invisible geographic boundaries. Block groups, in turn, are aggregated into Census Tracts, which generally have a population size between 1,200 and 8,000 people, with an optimum size of 4,000 people. Census Tracts aggregate into counties and counties into states. Metropolitan and micropolitan areas are aggregates of counties. See https://www2.census.gov/geo/pdfs/reference/geodiagram.pdf for further detail. Census geography, even Block Groups, may cross municipal lines and may include both urbanized and rural areas. Because population is a large factor in determining Census geography, some Block Groups may cover an extensive rural or wilderness area while others are quite compact. Census Block, Block Group, and Tract boundaries may change somewhat with each decennial Census, but remain stable in between Censuses.
+
+    The US Census Bureau is mandated to preserve the confidentiality of individual-level data. Therefore, data are often summarized, coarsened into categories, or suppressed by complex secret algorithms (especially, but not limited to household income data). In addition, because the variables of interest may only apply to a small subset of Block Group missing data can occur. In some versions of the data, calculated values are suppressed in Block Groups with less than 50 residents.
+
+    Standard errors for the socio-demographic variables are provided. Because each of the values in the ACS data files are summary statistics calculated from sample survey data for each Block Group, different samples yield somewhat different values. Therefore, the Census Bureau generates 80 replicate values for selected variables. These provide the basis for the estimated standard errors of the estimates.
+
+    The currently available variables are listed here:
+
+     **(2007-2011 data)**
+    - **YEARS** – the range of years for which this census data is valid
+    - **GEOID** – a FIPS like code for identifying which census block group this data pertains to, see (https://www.census.gov/geo/reference/geoidentifiers.html)
+    - **EstTotalPopulation** - estimated population count in block group
+    - **MedianHouseholdIncome** - estimated median household income
+    - **EstResidentialDensity** - block group population density
+    - **EstPropNonHispWhite** – proportion of the block group population that is non-Hispanic white
+    - **EstPropPersons5PlusNoEnglish** - proportion of the block group population aged 5 plus sometimes speaking a language other than English at home
+    - **EstPropMaleLittleWork** - proportion of block group males aged 16-64 who worked less than 26 weeks in the previous year
+    - **EstPropHouseholdsNoAuto** - proportion of the block group households with no automobile
+    - **EstPropHouseholdSSI** - proportion of the block group households receiving Supplemental Security Income
+    - **EstPropHouseholdPA** - proportion of the block group households receiving Public Assistance
+    - **EstPropHighSchoolMaxEducation** - proportion of the block group population aged 25 and up with a HS diploma or less
+    - **EstPropHighSchoolDropout** - proportion of the block group 16-19 year olds who are neither attending school nor HS graduates
+    - **EstPropHighSchoolDropoutNoWork** - proportion of the block group 16-19 year olds who are neither attending school nor HS graduates and are without work
+    - **EstPropFemaleHouseholdNoSpouse** - proportion of the block group family households headed by a female (no male partner present)
+    - **EstPropFemaleHouseholdFamilyChild** - proportion of the block group family households headed by a female with related children aged 18 or under (no male partner present)
+    - **EstPropFemaleHouseholdAnyChild** - proportion of the block group total households headed by a female with any children aged 18 or less (no male partner present)
+
+     **(2012-2016 data)**
+    - **YEARS** – the range of years for which this census data is valid
+    - **GEOID** – a FIPS like code for identifying which census block group this data pertains to, see (https://www.census.gov/geo/reference/geoidentifiers.html)
+    - **EstTotalPopulation** - estimated population count in block group
+    - **EstTotalPopulation_SE** - standard error of total population in block group
+      - **EstResidentialDensity** - block group population density
+    - **EstResidentialDensity_SE** - standard error of residential population density in block group
+    - **MedianHouseholdIncome** - estimated median household income
+    - **MedianHouseholdIncome_SE** - standard error of median household income
+    - **EstPropPersonsNoHealthIns** - proportion of the block group population with no health insurance - **EstPropPersonsNoHealthIns_SE** - standard error of proportion of the block group population with no health insurance
+    - **EstPropNonHispWhite** – proportion of the block group population that is non-Hispanic white
+    - **EstPropNonHispWhite_SE** - standard error of proportion of the block group population that  is non-Hispanic white
+    - **EstPropPersons5PlusNoEnglish** - proportion of the block group population aged 5 plus sometimes speaking a language other than English at home
+    - **EstPropPersons5PlusNoEnglish_SE** - standard error of proportion of the block group population aged 5 plus sometimes speaking a language other than English at home
+    - **EstPropMaleLittleWork** - proportion of block group males aged 16-64 who worked less than 26 weeks in the previous year
+    - **EstPropHouseholdsNoAuto** - proportion of the block group households with no automobile
+    - **EstPropHouseholdsNoAuto_SE** - standard error of proportion of the block group households with no automobile
+    - **EstPropHouseholdSSI** - proportion of the block group households receiving Supplemental Security Income
+    - **EstPropHouseholdSSI_SE** - standard error of proportion of the block group households receiving Supplemental Security Income
+    - **EstPropHouseholdPA** - proportion of the block group households receiving Public Assistance
+    - **EstPropHouseholdPA_SE** - standard error of proportion of the block group households receiving Public Assistance
+    - **EstPropHighSchoolMaxEducation** - proportion of the block group population aged 25 and up with a HS diploma or less
+    - **EstPropHighSchoolMaxEducation_SE** - standard error of proportion of the block group population aged 25 and up with a HS diploma or less
+    - **EstPropHighSchoolDropout** - proportion of the block group 16-19 year olds who are neither attending school nor HS graduates
+    - **EstPropHighSchoolDropoutNoWork** - proportion of the block group 16-19 year olds who are neither attending school nor HS graduates and are without work
+    - **EstPropFemaleHouseholdNoSpouse** - proportion of the block group family households headed by a female (no male partner present)
+    - **EstPropFemaleHouseholdNoSpouse_SE** - standard error of proportion of the block group family households headed by a female (no male partner present)
+    - **EstPropFemaleHouseholdFamilyChild** - proportion of the block group family households headed by a female with related children aged 18 or under (no male partner present)
+    - **EstPropFemaleHouseholdFamilyChild_SE** - standard error of proportion of the block group family households headed by a female with related children aged 18 or under (no male partner present)
+    - **EstPropFemaleHouseholdAnyChild** - proportion of the block group total households headed by a female with any children aged 18 or less (no male partner present)
+    - **EstPropFemaleHouseholdAnyChild_SE** - standard error of proportion of the block group total households headed by a female with any children aged 18 or less (no male partner present)
+
+    Locations are expressed using WGS84 decimal format. WGS84 is the World Geodetic System for expressing latitude and longitude. For example, Raleigh, North Carolina is at latitude 35.7796 and longitude -78.6382.
+
+    Additional details on the data can be found in this documentation: (https://github.com/lstillwe/socio-economic-api/blob/master/docs/CensusData.md)
   contact:
-    name: "Lisa Stillwell"
-    email: "lisa@renci.org"
+    name: Lisa Stillwell
+    email: lisa@renci.org
   license:
-    name: "MIT"
-    url: "http://opensource.org/licenses/MIT"
-host: "bdt-social.renci.org:8080"
-basePath: "/socio_environmental_exposures_api/v1"
-schemes:
-- "https"
+    name: MIT
+    url: http://opensource.org/licenses/MIT
+  version: 1.0.1
+servers:
+- url: https://bdt-social.renci.org:8080/socio_environmental_exposures_api/v1
+- url: http://bdt-social.renci.org:8080/socio_environmental_exposures_api/v1
+tags:
+- name: translator
 paths:
   /values:
     get:
-      summary: "provides ACS values"
-      description: "By passing in a location specification (lat, lon) and a year range,\
-        \ you can retrieve the the ACS Values for that location and year range\n"
-      operationId: "get_values"
-      produces:
-      - "application/json"
+      summary: provides ACS values
+      description: |
+        By passing in a location specification (lat, lon) and a year range, you can retrieve the the ACS Values for that location and year range
+      operationId: get_values
       parameters:
-      - name: "latitude"
-        in: "query"
-        description: "latitude in decimal degrees format, ie: 32.47"
+      - name: latitude
+        in: query
+        description: 'latitude in decimal degrees format, ie: 32.47'
         required: true
-        type: "string"
-      - name: "longitude"
-        in: "query"
-        description: "longitude in decimal degrees format, ie: -86.5"
+        schema:
+          type: string
+      - name: longitude
+        in: query
+        description: 'longitude in decimal degrees format, ie: -86.5'
         required: true
-        type: "string"
-      - name: "years"
-        in: "query"
-        description: "ACS data year range specification"
+        schema:
+          type: string
+      - name: years
+        in: query
+        description: ACS data year range specification
         required: true
-        type: "string"
-        enum:
-        - "All (2007-2016)"
-        - "2007-2011"
-        - "2012-2016"
+        schema:
+          type: string
+          enum:
+          - All (2007-2016)
+          - 2007-2011
+          - 2012-2016
       responses:
-        '200':
+        200:
           description: OK
-          schema:
-            type: object
-            properties:
-              latitude:
-                type: string
-                example: '32.47'
-              longitude:
-                type: string
-                example: '-86.5'
-              values:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    years:
-                      type: string
-                      example: '2012-2016'
-                    geoid:
-                      type: string
-                      example: '15000US010010201001'
-                    EstTotalPopulation:
-                      type: string
-                      example: '745'
-                    EstTotalPopulation_SE:
-                      type: string
-                      example: '137.5303603'
-                    EstResidentialDensity:
-                      type: string
-                      example: '175.1077206'
-                    EstResidentialDensity_SE:
-                      type: string
-                      example: '32.32567504'
-                    MedianHouseholdIncome:
-                      type: string
-                      example: n/a
-                    MedianHouseholdIncome_SE:
-                      type: string
-                      example: '9888'
-                    EstPropNonHispWhite:
-                      type: string
-                      example: '0.763758389'
-                    EstPropNonHispWhite_SE:
-                      type: string
-                      example: '0.105181283'
-                    EstPropHighSchoolMaxEducation:
-                      type: string
-                      example: '0.53164557'
-                    EstPropHighSchoolMaxEducation_SE:
-                      type: string
-                      example: '0.076480429'
-                    EstPropHouseholdsNoAuto:
-                      type: string
-                      example: '0.038732394'
-                    EstPropHouseholdsNoAuto_SE:
-                      type: string
-                      example: '0.039252128'
-                    EstPropPersonsNoHealthIns:
-                      type: string
-                      example: '0.183892617'
-                    EstPropPersonsNoHealthIns_SE:
-                      type: string
-                      example: '0.063328335'
-                    EstPropPersons5PlusNoEnglish:
-                      type: string
-                      example: '0.075070822'
-                    EstPropPersons5PlusNoEnglish_SE:
-                      type: string
-                      example: '0.040387049'
-                    EstPropFemaleHouseholdNoSpouse:
-                      type: string
-                      example: '0.362694301'
-                    EstPropFemaleHouseholdNoSpouse_SE:
-                      type: string
-                      example: '0.108321058'
-                    EstPropFemaleHouseholdFamilyChild:
-                      type: string
-                      example: '0.227979275'
-                    EstPropFemaleHouseholdFamilyChild_SE:
-                      type: string
-                      example: '0.151408698'
-                    EstPropFemaleHouseholdAnyChild:
-                      type: string
-                      example: '0.154929577'
-                    EstPropFemaleHouseholdAnyChild_SE:
-                      type: string
-                      example: '0.075973316'
-                    EstPropHighSchoolDropout:
-                      type: string
-                      example: 'n/a'
-                    EstPropHighSchoolDropoutNoWork:
-                      type: string
-                      example: 'n/a'
-                    EstPropHouseholdSSI:
-                      type: string
-                      example: '0.088028169'
-                    EstPropHouseholdSSI_SE:
-                      type: string
-                      example: '0.04974414'
-                    EstPropHouseholdPA:
-                      type: string
-                      example: '0'
-                    EstPropHouseholdPA_SE:
-                      type: string
-                      example: '0.060887293'
-                    EstPropMaleLittleWork:
-                      type: string
-                      example: '0.385245902'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  latitude:
+                    type: string
+                    example: "32.47"
+                  longitude:
+                    type: string
+                    example: -86.5
+                  values:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        years:
+                          type: string
+                          example: 2012-2016
+                        geoid:
+                          type: string
+                          example: 15000US010010201001
+                        EstTotalPopulation:
+                          type: string
+                          example: "745"
+                        EstTotalPopulation_SE:
+                          type: string
+                          example: "137.5303603"
+                        EstResidentialDensity:
+                          type: string
+                          example: "175.1077206"
+                        EstResidentialDensity_SE:
+                          type: string
+                          example: "32.32567504"
+                        MedianHouseholdIncome:
+                          type: string
+                          example: n/a
+                        MedianHouseholdIncome_SE:
+                          type: string
+                          example: "9888"
+                        EstPropNonHispWhite:
+                          type: string
+                          example: "0.763758389"
+                        EstPropNonHispWhite_SE:
+                          type: string
+                          example: "0.105181283"
+                        EstPropHighSchoolMaxEducation:
+                          type: string
+                          example: "0.53164557"
+                        EstPropHighSchoolMaxEducation_SE:
+                          type: string
+                          example: "0.076480429"
+                        EstPropHouseholdsNoAuto:
+                          type: string
+                          example: "0.038732394"
+                        EstPropHouseholdsNoAuto_SE:
+                          type: string
+                          example: "0.039252128"
+                        EstPropPersonsNoHealthIns:
+                          type: string
+                          example: "0.183892617"
+                        EstPropPersonsNoHealthIns_SE:
+                          type: string
+                          example: "0.063328335"
+                        EstPropPersons5PlusNoEnglish:
+                          type: string
+                          example: "0.075070822"
+                        EstPropPersons5PlusNoEnglish_SE:
+                          type: string
+                          example: "0.040387049"
+                        EstPropFemaleHouseholdNoSpouse:
+                          type: string
+                          example: "0.362694301"
+                        EstPropFemaleHouseholdNoSpouse_SE:
+                          type: string
+                          example: "0.108321058"
+                        EstPropFemaleHouseholdFamilyChild:
+                          type: string
+                          example: "0.227979275"
+                        EstPropFemaleHouseholdFamilyChild_SE:
+                          type: string
+                          example: "0.151408698"
+                        EstPropFemaleHouseholdAnyChild:
+                          type: string
+                          example: "0.154929577"
+                        EstPropFemaleHouseholdAnyChild_SE:
+                          type: string
+                          example: "0.075973316"
+                        EstPropHighSchoolDropout:
+                          type: string
+                          example: n/a
+                        EstPropHighSchoolDropoutNoWork:
+                          type: string
+                          example: n/a
+                        EstPropHouseholdSSI:
+                          type: string
+                          example: "0.088028169"
+                        EstPropHouseholdSSI_SE:
+                          type: string
+                          example: "0.04974414"
+                        EstPropHouseholdPA:
+                          type: string
+                          example: "0"
+                        EstPropHouseholdPA_SE:
+                          type: string
+                          example: "0.060887293"
+                        EstPropMaleLittleWork:
+                          type: string
+                          example: "0.385245902"
         400:
-          description: "Invalid parameter"
+          description: Invalid parameter
+          content: {}
         404:
-          description: "No values found"
+          description: No values found
+          content: {}
         500:
-          description: "Server error"
-      x-swagger-router-controller: "swagger_server.controllers.default_controller"
-definitions:
-  inline_response_200:
-    properties:
-      years:
-        type: "string"
-        example: "2012-2016"
-      latitude:
-        type: "string"
-        example: "32.47"
-      longitude:
-        type: "string"
-        example: "-86.5"
-      geoid:
-        type: "string"
-        example: "15000US010010201001"
-      EstTotalPopulation:
-        type: "string"
-        example: "745"
-      EstTotalPopulation_SE:
-        type: "string"
-        example: "137.5303603"
-      EstResidentialDensity:
-        type: "string"
-        example: "175.1077206"
-      EstResidentialDensity_SE:
-        type: "string"
-        example: "32.32567504"
-      MedianHouseholdIncome:
-        type: "string"
-        example: "n/a"
-      MedianHouseholdIncome_SE:
-        type: "string"
-        example: "9888"
-      EstPropNonHispWhite:
-        type: "string"
-        example: "0.763758389"
-      EstPropNonHispWhite_SE:
-        type: "string"
-        example: "0.105181283"
-      EstPropHighSchoolMaxEducation:
-        type: "string"
-        example: "0.53164557"
-      EstPropHighSchoolMaxEducation_SE:
-        type: "string"
-        example: "0.076480429"
-      EstPropHouseholdsNoAuto:
-        type: "string"
-        example: "0.038732394"
-      EstPropHouseholdsNoAuto_SE:
-        type: "string"
-        example: "0.039252128"
-      EstPropPersonsNoHealthIns:
-        type: "string"
-        example: "0.183892617"
-      EstPropPersonsNoHealthIns_SE:
-        type: "string"
-        example: "0.063328335"
-      EstPropPersons5PlusNoEnglish:
-        type: "string"
-        example: "0.075070822"
-      EstPropPersons5PlusNoEnglish_SE:
-        type: "string"
-        example: "0.040387049"
-      EstPropFemaleHouseholdNoSpouse:
-        type: "string"
-        example: "0.362694301"
-      EstPropFemaleHouseholdNoSpouse_SE:
-        type: "string"
-        example: "0.108321058"
-      EstPropFemaleHouseholdFamilyChild:
-        type: "string"
-        example: "0.227979275"
-      EstPropFemaleHouseholdFamilyChild_SE:
-        type: "string"
-        example: "0.151408698"
-      EstPropFemaleHouseholdAnyChild:
-        type: "string"
-        example: "0.154929577"
-      EstPropFemaleHouseholdAnyChild_SE:
-        type: "string"
-        example: "0.075973316"
-      EstPropHighSchoolDropout:
-        type: "string"
-        example: "n/a"
-      EstPropHighSchoolDropoutNoWork:
-        type: "string"
-        example: "n/a"
-      EstPropHouseholdSSI:
-        type: "string"
-        example: "0.088028169"
-      EstPropHouseholdSSI_SE:
-        type: "string"
-        example: "0.04974414"
-      EstPropHouseholdPA:
-        type: "string"
-        example: "0"
-      EstPropHouseholdPA_SE:
-        type: "string"
-        example: "0.060887293"
-      EstPropMaleLittleWork:
-        type: "string"
-        example: "0.385245902"
-    example:
-      EstPropHighSchoolDropoutNoWork: "n/a"
-      EstPropPersons5PlusNoEnglish_SE: "0.040387049"
-      latitude: "32.47"
-      EstPropHouseholdPA_SE: "0.060887293"
-      EstPropHouseholdsNoAuto_SE: "0.039252128"
-      EstPropNonHispWhite: "0.763758389"
-      EstPropHighSchoolMaxEducation_SE: "0.076480429"
-      EstResidentialDensity: "175.1077206"
-      EstPropHouseholdSSI_SE: "0.04974414"
-      MedianHouseholdIncome: "n/a"
-      EstPropFemaleHouseholdAnyChild: "0.154929577"
-      years: "2012-2016"
-      EstPropFemaleHouseholdFamilyChild: "0.227979275"
-      EstPropFemaleHouseholdNoSpouse_SE: "0.108321058"
-      EstPropFemaleHouseholdNoSpouse: "0.362694301"
-      EstResidentialDensity_SE: "32.32567504"
-      EstPropFemaleHouseholdFamilyChild_SE: "0.151408698"
-      MedianHouseholdIncome_SE: "9888"
-      EstPropHighSchoolMaxEducation: "0.53164557"
-      longitude: "-86.5"
-      EstTotalPopulation: "745"
-      EstTotalPopulation_SE: "137.5303603"
-      EstPropHouseholdPA: "0"
-      EstPropPersonsNoHealthIns: "0.183892617"
-      EstPropFemaleHouseholdAnyChild_SE: "0.075973316"
-      EstPropHighSchoolDropout: "n/a"
-      geoid: "15000US010010201001"
-      EstPropHouseholdsNoAuto: "0.038732394"
-      EstPropPersonsNoHealthIns_SE: "0.063328335"
-      EstPropMaleLittleWork: "0.385245902"
-      EstPropPersons5PlusNoEnglish: "0.075070822"
-      EstPropHouseholdSSI: "0.088028169"
-      EstPropNonHispWhite_SE: "0.105181283"
-parameters:
-  search:
-    name: "search"
-    in: "query"
-    description: "search for exposure variables like - default is empty"
-    required: false
-    type: "string"
-  latitude:
-    name: "latitude"
-    in: "query"
-    description: "latitude in decimal degrees format, ie: 32.47"
-    required: true
-    type: "string"
-  longitude:
-    name: "longitude"
-    in: "query"
-    description: "longitude in decimal degrees format, ie: -86.5"
-    required: true
-    type: "string"
-  years:
-    name: "years"
-    in: "query"
-    description: "ACS data year range specification"
-    required: true
-    type: "string"
-    enum:
-    - "All (2007-2016)"
-    - "2007-2011"
-    - "2012-2016"
+          description: Server error
+          content: {}
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+components:
+  schemas:
+    inline_response_200:
+      type: object
+      properties:
+        years:
+          type: string
+          example: 2012-2016
+        latitude:
+          type: string
+          example: "32.47"
+        longitude:
+          type: string
+          example: -86.5
+        geoid:
+          type: string
+          example: 15000US010010201001
+        EstTotalPopulation:
+          type: string
+          example: "745"
+        EstTotalPopulation_SE:
+          type: string
+          example: "137.5303603"
+        EstResidentialDensity:
+          type: string
+          example: "175.1077206"
+        EstResidentialDensity_SE:
+          type: string
+          example: "32.32567504"
+        MedianHouseholdIncome:
+          type: string
+          example: n/a
+        MedianHouseholdIncome_SE:
+          type: string
+          example: "9888"
+        EstPropNonHispWhite:
+          type: string
+          example: "0.763758389"
+        EstPropNonHispWhite_SE:
+          type: string
+          example: "0.105181283"
+        EstPropHighSchoolMaxEducation:
+          type: string
+          example: "0.53164557"
+        EstPropHighSchoolMaxEducation_SE:
+          type: string
+          example: "0.076480429"
+        EstPropHouseholdsNoAuto:
+          type: string
+          example: "0.038732394"
+        EstPropHouseholdsNoAuto_SE:
+          type: string
+          example: "0.039252128"
+        EstPropPersonsNoHealthIns:
+          type: string
+          example: "0.183892617"
+        EstPropPersonsNoHealthIns_SE:
+          type: string
+          example: "0.063328335"
+        EstPropPersons5PlusNoEnglish:
+          type: string
+          example: "0.075070822"
+        EstPropPersons5PlusNoEnglish_SE:
+          type: string
+          example: "0.040387049"
+        EstPropFemaleHouseholdNoSpouse:
+          type: string
+          example: "0.362694301"
+        EstPropFemaleHouseholdNoSpouse_SE:
+          type: string
+          example: "0.108321058"
+        EstPropFemaleHouseholdFamilyChild:
+          type: string
+          example: "0.227979275"
+        EstPropFemaleHouseholdFamilyChild_SE:
+          type: string
+          example: "0.151408698"
+        EstPropFemaleHouseholdAnyChild:
+          type: string
+          example: "0.154929577"
+        EstPropFemaleHouseholdAnyChild_SE:
+          type: string
+          example: "0.075973316"
+        EstPropHighSchoolDropout:
+          type: string
+          example: n/a
+        EstPropHighSchoolDropoutNoWork:
+          type: string
+          example: n/a
+        EstPropHouseholdSSI:
+          type: string
+          example: "0.088028169"
+        EstPropHouseholdSSI_SE:
+          type: string
+          example: "0.04974414"
+        EstPropHouseholdPA:
+          type: string
+          example: "0"
+        EstPropHouseholdPA_SE:
+          type: string
+          example: "0.060887293"
+        EstPropMaleLittleWork:
+          type: string
+          example: "0.385245902"
+      example:
+        EstPropHighSchoolDropoutNoWork: n/a
+        EstPropPersons5PlusNoEnglish_SE: "0.040387049"
+        latitude: "32.47"
+        EstPropHouseholdPA_SE: "0.060887293"
+        EstPropHouseholdsNoAuto_SE: "0.039252128"
+        EstPropNonHispWhite: "0.763758389"
+        EstPropHighSchoolMaxEducation_SE: "0.076480429"
+        EstResidentialDensity: "175.1077206"
+        EstPropHouseholdSSI_SE: "0.04974414"
+        MedianHouseholdIncome: n/a
+        EstPropFemaleHouseholdAnyChild: "0.154929577"
+        years: 2012-2016
+        EstPropFemaleHouseholdFamilyChild: "0.227979275"
+        EstPropFemaleHouseholdNoSpouse_SE: "0.108321058"
+        EstPropFemaleHouseholdNoSpouse: "0.362694301"
+        EstResidentialDensity_SE: "32.32567504"
+        EstPropFemaleHouseholdFamilyChild_SE: "0.151408698"
+        MedianHouseholdIncome_SE: "9888"
+        EstPropHighSchoolMaxEducation: "0.53164557"
+        longitude: -86.5
+        EstTotalPopulation: "745"
+        EstTotalPopulation_SE: "137.5303603"
+        EstPropHouseholdPA: "0"
+        EstPropPersonsNoHealthIns: "0.183892617"
+        EstPropFemaleHouseholdAnyChild_SE: "0.075973316"
+        EstPropHighSchoolDropout: n/a
+        geoid: 15000US010010201001
+        EstPropHouseholdsNoAuto: "0.038732394"
+        EstPropPersonsNoHealthIns_SE: "0.063328335"
+        EstPropMaleLittleWork: "0.385245902"
+        EstPropPersons5PlusNoEnglish: "0.075070822"
+        EstPropHouseholdSSI: "0.088028169"
+        EstPropNonHispWhite_SE: "0.105181283"
+  parameters:
+    search:
+      name: search
+      in: query
+      description: search for exposure variables like - default is empty
+      schema:
+        type: string
+    latitude:
+      name: latitude
+      in: query
+      description: 'latitude in decimal degrees format, ie: 32.47'
+      required: true
+      schema:
+        type: string
+    longitude:
+      name: longitude
+      in: query
+      description: 'longitude in decimal degrees format, ie: -86.5'
+      required: true
+      schema:
+        type: string
+    years:
+      name: years
+      in: query
+      description: ACS data year range specification
+      required: true
+      schema:
+        type: string
+        enum:
+        - All (2007-2016)
+        - 2007-2011
+        - 2012-2016
