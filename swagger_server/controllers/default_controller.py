@@ -1,6 +1,7 @@
 import sys
 
 from swagger_server.models.inline_response200 import InlineResponse200  # noqa: E501
+#from swagger_server.models.models import SocioEconomicDatum  # noqa: E501
 from swagger_server.models.models import SocioEconomicData2019  # noqa: E501
 from swagger_server import util
 from configparser import ConfigParser
