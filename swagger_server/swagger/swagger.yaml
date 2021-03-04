@@ -79,6 +79,10 @@ info:
     name: MIT
     url: http://opensource.org/licenses/MIT
   version: 1.0.1
+  x-translator:
+    component: KP
+    team:
+    - Exposures Provider
 servers:
 - url: https://bdt-social.renci.org:8080/socio_environmental_exposures_api/v1
 - url: http://bdt-social.renci.org:8080/socio_environmental_exposures_api/v1
