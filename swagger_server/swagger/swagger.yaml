@@ -84,10 +84,10 @@ info:
     team:
     - Exposures Provider
 servers:
-- url: https://bdt-social.renci.org:8080/socio_environmental_exposures_api/v1
-- url: http://bdt-social.renci.org:8080/socio_environmental_exposures_api/v1
+- url: https://bdt-social.renci.org/socio_environmental_exposures_api/v1
+- url: http://bdt-social.renci.org/socio_environmental_exposures_api/v1
 tags:
-- name: translator
+- name: metadata
 paths:
   /values:
     get:
