@@ -7,6 +7,8 @@ is an example of building a swagger-enabled Flask server.
 
 This example uses the [Connexion](https://github.com/zalando/connexion) library on top of Flask.
 
+The Swagger interface for the Socioeconomic Exposures API can be found at https://bdt-social.renci.org/socio_environmental_exposures_api/v1/ui/.
+
 ## Requirements
 Python 3.5.2+
 
